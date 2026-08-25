@@ -20,10 +20,11 @@ Livrables : rapport statique (README, figures) + dashboard interactif.
 
 ## Feature 2 — Consolidation et exploration
 
-- [ ] Jointure temporelle rendements × climat
-- [ ] Table consolidée exportée (CSV/Parquet)
-- [ ] EDA : distributions, valeurs manquantes, années/cultures couvertes
-- [ ] Note sur les limites de comparabilité (méthodologie, granularité)
+- [x] Jointure temporelle rendements × climat (`geo` + `year`, inner)
+- [x] Table consolidée (`rendements_climat.csv` + `.parquet`) avec anomalies
+      et z-scores climatiques (référence 2000–2024 par territoire)
+- [x] EDA : `docs/eda.md` généré + notebook `notebooks/02-eda-jointure.ipynb`
+- [x] Note sur les limites de comparabilité (méthodologie, granularité, pas de CMIP6)
 
 ## Feature 3 — Analyse statistique
 
@@ -61,6 +62,13 @@ Livrables : rapport statique (README, figures) + dashboard interactif.
 
 - [ ] Présentations Marp (4 fichiers FR/EN)
 - [ ] CHANGELOG et entrée JOURNAL après merge des features majeures
+
+## Feature 9 — Scénarios climatiques (optionnel, après le ML)
+
+- [ ] Hors scope tant que la Feature 6 n'existe pas : pas de rendements futurs
+- [ ] Si un jour : API Climate Open-Meteo (CMIP6 / SSP), overlay séparé,
+      jamais mélangé aux années observées 2000–2024
+- [ ] Documenter l'incertitude modèle + downscaling (voir `docs/decisions.md`)
 
 ---
 

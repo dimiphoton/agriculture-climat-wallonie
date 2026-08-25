@@ -1,4 +1,4 @@
-"""Point d'entrée en ligne de commande : téléchargement et nettoyage."""
+"""Point d'entrée en ligne de commande : téléchargement, nettoyage, jointure."""
 
 from __future__ import annotations
 
@@ -19,7 +19,8 @@ from agri_climat.data.download import (
     download_rendements,
     rendements_raw_path,
 )
-from agri_climat.paths import processed_dir, raw_dir
+from agri_climat.data.join import join_processed_files
+from agri_climat.paths import docs_dir, processed_dir, raw_dir
 
 logger = logging.getLogger(__name__)
 
@@ -48,10 +49,14 @@ def _cmd_clean(kind: str) -> None:
         clean_climat_files(raw, processed)
 
 
+def _cmd_join() -> None:
+    join_processed_files(processed_dir(), docs_dir())
+
+
 def build_parser() -> argparse.ArgumentParser:
     """Construit le parseur CLI."""
     parser = argparse.ArgumentParser(
-        description="Acquisition et nettoyage des données agriculture-climat Wallonie.",
+        description="Pipeline agriculture-climat Wallonie (download, clean, join).",
     )
     sub = parser.add_subparsers(dest="command", required=True)
 
@@ -71,7 +76,14 @@ def build_parser() -> argparse.ArgumentParser:
         choices=["all", "rendements", "climat"],
     )
 
-    sub.add_parser("run", help="Télécharger puis nettoyer (pipeline complet).")
+    sub.add_parser(
+        "join",
+        help="Joindre rendements et climat, écrire CSV/Parquet et docs/eda.md.",
+    )
+    sub.add_parser(
+        "run",
+        help="Télécharger, nettoyer, puis joindre (pipeline complet).",
+    )
     return parser
 
 
@@ -96,11 +108,14 @@ def main(argv: list[str] | None = None) -> int:
             _cmd_download(args.kind)
         elif args.command == "clean":
             _cmd_clean(args.kind)
+        elif args.command == "join":
+            _cmd_join()
         elif args.command == "run":
             _cmd_download("all")
             _cmd_clean("all")
+            _cmd_join()
     except FileNotFoundError as exc:
-        logger.error("%s — lancer d'abord : python -m agri_climat download", exc)
+        logger.error("%s — lancer d'abord : python -m agri_climat clean (ou run)", exc)
         return 1
     except requests.RequestException as exc:
         logger.error("Échec du téléchargement : %s", exc)

@@ -9,7 +9,7 @@ paginate: true
 ![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python&logoColor=white)
 ![pandas](https://img.shields.io/badge/pandas-2.x-150458?logo=pandas&logoColor=white)
 
-*Which crops are most exposed to difficult climate years?*
+*Feature 2: joined yield × climate table*
 
 ---
 
@@ -30,5 +30,7 @@ temperature, rainfall and evapotranspiration over the same period.
 
 ## Where we are
 
-The dataset is assembled and cleaned, ready for analysis. Charts, crop-level
-diagnostics and the dashboard come next.
+Yields and climate now sit **on the same row** (crop, territory, year), with
+a departure from the 2000–2024 climate normal. Coverage of years and crops
+is documented. Which crops are sensitive comes next, then charts and the
+dashboard.

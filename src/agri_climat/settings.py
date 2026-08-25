@@ -59,6 +59,17 @@ OPEN_METEO_DAILY_VARS = (
 )
 GROWING_SEASON_MONTHS: tuple[int, ...] = (4, 5, 6, 7, 8, 9)
 
+# Variables climatiques annuelles (hors identifiants) pour anomalies / z-scores.
+# Référence = moyenne 2000–2024 calculée séparément pour chaque ``geo``.
+CLIMATE_ANNUAL_VALUE_COLS: tuple[str, ...] = (
+    "temp_mean_c",
+    "precip_mm",
+    "et0_mm",
+    "temp_mean_growing_c",
+    "precip_growing_mm",
+    "et0_growing_mm",
+)
+
 HTTP_TIMEOUT_S = 60
 HTTP_USER_AGENT = "agriculture-climat-wallonie/0.1 (portfolio; pandas pipeline)"
 
