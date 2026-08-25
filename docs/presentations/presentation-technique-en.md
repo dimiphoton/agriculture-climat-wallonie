@@ -10,49 +10,51 @@ paginate: true
 ![pandas](https://img.shields.io/badge/pandas-2.x-150458?logo=pandas&logoColor=white)
 ![requests](https://img.shields.io/badge/requests-HTTP-2b5b84)
 
-*Feature 1: data acquisition and cleaning*
+*Feature 2: join, anomalies, EDA*
 
 ---
 
 ## Framing
 
-Question: sensitivity of Walloon crop yields to recent climate variability.
-Primary approach: statistical analysis / BI. A map and a simple ML baseline
-come later, as complements, not as the main goal.
+Question: sensitivity of Walloon crop yields to **recent** climate
+variability. Primary approach: statistical analysis / BI. Map and a simple
+ML baseline come later. No climate-model scenario in the observed table.
 
 ---
 
-## Method (step 1)
+## Method
 
-1. Eurostat `apro_cpshr`: area and production, NUTS 1 (BE3) and NUTS 2.
-2. Yield = production / area (t/ha).
-3. If NUTS 1 is implausible (agronomic bounds), sum the provinces.
-4. Open-Meteo Archive (ERA5): five provincial centroids, aggregated to
-   monthly / annual / April–September growing season.
+1. Eurostat `apro_cpshr`: yield = production / area (t/ha).
+2. ERA5 via Open-Meteo: five centroids, April–September season.
+3. Inner join on `geo` + `year` (2000–2024).
+4. Anomaly and z-score **per territory** vs the 2000–2024 mean.
+5. CSV + Parquet export; EDA in `docs/eda.md`.
 
 ---
 
 ## Stack
 
-- **pandas**: Eurostat TSV, Open-Meteo JSON, aggregations.
-- **requests** + **truststore**: reproducible downloads (OS certificate store).
-- No CDS / NetCDF at this stage: time series only.
+- **pandas**: TSV, JSON, join, aggregations.
+- **pyarrow**: Parquet (types preserved).
+- **matplotlib**: exploration notebook only (portfolio figures = F4).
+- **requests** + **truststore**: downloads.
 
-Code: `src/agri_climat/data/` — `python -m agri_climat run`
+Code: `src/agri_climat/data/join.py` — `python -m agri_climat run`
 
 ---
 
-## Data quality
+## Quality / EDA
 
-- Eurostat flags (`:`, `e`, `p`) → missing values.
-- Documented unit break (Walloon wheat 2011) is corrected and flagged
-  (`imputed=True`).
+- Coverage by crop × territory, missingness, yield ranges.
+- `imputed` flag kept after the join (BE3 fixes).
 - Granularity: region / province, not the plot.
 
 ---
 
-## Limits (so far)
+## Limits
 
-No yield × climate join yet, and no correlation. The Wallonia climate series
-is an unweighted mean of five points, not UAA-weighted. Causality is out of
-scope: correlation only, later.
+- One climate point per province; Wallonia = unweighted mean (not UAA).
+- Single growing-season calendar (April–September).
+- **No CMIP6 / SSP** here: different question (the future), after a
+  statistical model (Feature 6 → optional Feature 9).
+- Correlation ≠ causation (Feature 3).

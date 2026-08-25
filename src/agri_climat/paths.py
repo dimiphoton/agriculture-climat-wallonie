@@ -16,3 +16,8 @@ def raw_dir() -> Path:
 def processed_dir() -> Path:
     """Dossier des tables nettoyées, régénérables depuis ``data/raw``."""
     return repo_root() / "data" / "processed"
+
+
+def docs_dir() -> Path:
+    """Dossier de documentation du dépôt (EDA, décisions, présentations)."""
+    return repo_root() / "docs"

@@ -2,7 +2,7 @@
 
 | | |
 |---|---|
-| **Stack** | ![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python&logoColor=white) ![pandas](https://img.shields.io/badge/pandas-2.x-150458?logo=pandas&logoColor=white) ![requests](https://img.shields.io/badge/requests-HTTP-2b5b84) |
+| **Stack** | ![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python&logoColor=white) ![pandas](https://img.shields.io/badge/pandas-2.x-150458?logo=pandas&logoColor=white) ![pyarrow](https://img.shields.io/badge/pyarrow-Parquet-34A001) ![matplotlib](https://img.shields.io/badge/matplotlib-EDA-11557c) ![requests](https://img.shields.io/badge/requests-HTTP-2b5b84) |
 | **Level** | Intermediate *(proposal — to confirm)* |
 | **Data specialty** | BI / statistical analysis |
 
@@ -23,16 +23,20 @@ for sector stakeholders (cooperatives, crop insurers, public administration).
 - **Climate**: Open-Meteo Archive (ERA5 reanalysis) at five provincial
   centroids — daily temperature, precipitation and FAO ET0, then aggregated
   to monthly / annual / growing-season (April–September) series. Wallonia =
-  simple mean of the five points.
+  simple mean of the five points. Annual series include anomalies and
+  z-scores versus the 2000–2024 mean of each territory.
 
-Raw files stay in `data/raw/` (not committed). Clean tables are in
-`data/processed/`.
+Raw files stay in `data/raw/` (not committed). Clean and joined tables are
+in `data/processed/` (`rendements.csv`, `climat_*.csv`,
+`rendements_climat.csv` / `.parquet`).
 
 ## Result
 
-Feature 1 delivers a reproducible pipeline and three analysis-ready tables
-(`rendements.csv`, `climat_mensuel.csv`, `climat_annuel.csv`). Statistical
-analysis, charts and the dashboard come in later features.
+Feature 2 delivers a joined yield × climate table (CSV and Parquet) with
+climate anomalies, a generated EDA note (`docs/eda.md`), and an exploration
+notebook (`notebooks/02-eda-jointure.ipynb`). Correlations, portfolio charts
+and the dashboard come in later features. Climate-model scenarios (CMIP6)
+are intentionally out of this table — see `docs/decisions.md`.
 
 ## Reproduce
 
@@ -48,22 +52,35 @@ Useful commands:
 
 ```bash
 python -m agri_climat download          # raw files only
-python -m agri_climat clean             # rebuild processed tables
+python -m agri_climat clean             # rebuild processed climate/yield tables
+python -m agri_climat join              # join + anomalies + docs/eda.md
+python -m agri_climat eda               # tables + PNG, no GUI
 python -m agri_climat download climat   # climate only
 ```
 
 Internet access is needed for the first download (Eurostat and Open-Meteo).
-Afterwards, `clean` works offline from `data/raw/`.
+Afterwards, `clean` and `join` work offline from `data/raw/` (join needs the
+cleaned CSVs). Fast preview (no Jupyter window):
+
+```bash
+python -m agri_climat eda
+```
+
+This prints the EDA tables and writes
+`pictures/experiments/eda-froment-pluie-saison.png`. Optional notebook:
+`notebooks/02-eda-jointure.ipynb` (kernel = project `.venv`). Do not use
+`plt.show()` — on Windows the Tk window can hang for minutes.
 
 ## Repo structure
 
 ```
 brief/                 # original goal and portfolio brief
 data/raw/              # downloaded files (gitignored)
-data/processed/        # clean CSV tables
-src/agri_climat/       # download, clean, CLI
-tests/                 # unit tests on the cleaners
-docs/                  # decisions, Marp presentations
+data/processed/        # clean and joined tables (CSV / Parquet)
+src/agri_climat/       # download, clean, join, CLI
+notebooks/             # EDA notebook (calls src/, no duplicated logic)
+tests/                 # unit tests
+docs/                  # decisions, EDA note, Marp presentations
 ```
 
 See also `ROADMAP.md` and `JOURNAL.md` (French, like the rest of the

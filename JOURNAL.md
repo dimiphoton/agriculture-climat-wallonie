@@ -1,5 +1,12 @@
 # Journal de développement
 
+## 2026-08-25 — Feature 2 : jointure et EDA
+
+- Table `rendements_climat` (CSV + Parquet), anomalies climatiques par
+  territoire, rapport `docs/eda.md`.
+- Aperçu reproductible : `python -m agri_climat eda` (terminal + PNG),
+  sans `plt.show()` qui bloquait sous Windows.
+
 ## 2026-08-25 — Feature 1 : acquisition et nettoyage
 
 - Pipeline CLI (`python -m agri_climat run`) : rendements Eurostat

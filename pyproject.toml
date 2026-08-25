@@ -5,6 +5,8 @@ description = "Sensibilité des rendements agricoles wallons à la variabilité 
 requires-python = ">=3.11"
 dependencies = [
     "pandas>=2.2",
+    "pyarrow>=16.0",
+    "matplotlib>=3.9",
     "requests>=2.32",
     "truststore>=0.10",
 ]
@@ -12,6 +14,7 @@ dependencies = [
 [project.optional-dependencies]
 dev = [
     "pytest>=8.0",
+    "ipykernel>=6.29",
 ]
 
 [project.scripts]
