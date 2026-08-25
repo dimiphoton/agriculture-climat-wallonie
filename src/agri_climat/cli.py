@@ -53,6 +53,12 @@ def _cmd_join() -> None:
     join_processed_files(processed_dir(), docs_dir())
 
 
+def _cmd_eda() -> None:
+    from agri_climat.eda_preview import run_eda_preview
+
+    run_eda_preview()
+
+
 def build_parser() -> argparse.ArgumentParser:
     """Construit le parseur CLI."""
     parser = argparse.ArgumentParser(
@@ -79,6 +85,10 @@ def build_parser() -> argparse.ArgumentParser:
     sub.add_parser(
         "join",
         help="Joindre rendements et climat, écrire CSV/Parquet et docs/eda.md.",
+    )
+    sub.add_parser(
+        "eda",
+        help="Aperçu EDA dans le terminal + PNG (sans fenêtre graphique).",
     )
     sub.add_parser(
         "run",
@@ -110,6 +120,8 @@ def main(argv: list[str] | None = None) -> int:
             _cmd_clean(args.kind)
         elif args.command == "join":
             _cmd_join()
+        elif args.command == "eda":
+            _cmd_eda()
         elif args.command == "run":
             _cmd_download("all")
             _cmd_clean("all")

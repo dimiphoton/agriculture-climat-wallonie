@@ -54,13 +54,22 @@ Useful commands:
 python -m agri_climat download          # raw files only
 python -m agri_climat clean             # rebuild processed climate/yield tables
 python -m agri_climat join              # join + anomalies + docs/eda.md
+python -m agri_climat eda               # tables + PNG, no GUI
 python -m agri_climat download climat   # climate only
 ```
 
 Internet access is needed for the first download (Eurostat and Open-Meteo).
 Afterwards, `clean` and `join` work offline from `data/raw/` (join needs the
-cleaned CSVs). Explore the joined table in
-`notebooks/02-eda-jointure.ipynb`.
+cleaned CSVs). Fast preview (no Jupyter window):
+
+```bash
+python -m agri_climat eda
+```
+
+This prints the EDA tables and writes
+`pictures/experiments/eda-froment-pluie-saison.png`. Optional notebook:
+`notebooks/02-eda-jointure.ipynb` (kernel = project `.venv`). Do not use
+`plt.show()` — on Windows the Tk window can hang for minutes.
 
 ## Repo structure
 

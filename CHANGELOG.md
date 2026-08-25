@@ -9,7 +9,8 @@
   (référence 2000–2024).
 - Rapport `docs/eda.md` généré par le CLI ; notebook
   `notebooks/02-eda-jointure.ipynb`.
-- `python -m agri_climat join` (inclus dans `run`).
+- `python -m agri_climat join` (inclus dans `run`) ; `python -m agri_climat eda`
+  pour l'aperçu terminal + PNG (évite le blocage `plt.show()` / Tk).
 - Scénarios CMIP6 / SSP volontairement exclus de cette table (décision
   documentée ; Feature 9 optionnelle après le ML).
 
