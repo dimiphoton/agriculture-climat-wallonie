@@ -1,0 +1,15 @@
+year,crop_label,yield_t_ha,yield_resid_z,temp_mean_growing_c_z,precip_growing_mm_z,et0_growing_mm_z,alea
+2000,Colza,3.022,-2.068,-0.706,1.575,-1.246,"humide, ET0-"
+2000,Orge,6.899,-1.074,-0.706,1.575,-1.246,"humide, ET0-"
+2001,Betterave sucrière,58.863,-1.118,-1.261,0.839,-0.679,froid
+2003,Orge,6.533,-1.618,1.526,-0.909,1.429,"chaud, ET0+"
+2018,Maïs grain,7.4,-1.575,2.345,-1.821,1.916,"chaud, sec, ET0+"
+2018,Pomme de terre,32.931,-1.4,2.345,-1.821,1.916,"chaud, sec, ET0+"
+2020,Maïs grain,7.417,-1.308,1.351,-1.4,2.107,"chaud, sec, ET0+"
+2021,Colza,3.406,-1.264,-1.824,1.677,-0.945,"froid, humide"
+2024,Betterave sucrière,77.801,-1.506,0.096,2.32,-0.598,humide
+2024,Colza,3.353,-1.431,0.096,2.32,-0.598,humide
+2024,Froment et épeautre,6.517,-2.436,0.096,2.32,-0.598,humide
+2024,Maïs fourrager,41.545,-1.073,0.096,2.32,-0.598,humide
+2024,Orge,6.224,-2.219,0.096,2.32,-0.598,humide
+2024,Orge d'hiver,6.409,-1.438,0.096,2.32,-0.598,humide

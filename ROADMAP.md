@@ -28,10 +28,10 @@ Livrables : rapport statique (README, figures) + dashboard interactif.
 
 ## Feature 3 — Analyse statistique
 
-- [ ] Corrélations et tendances par culture
-- [ ] Identification des cultures les plus sensibles et des années atypiques
-- [ ] Au moins une culture traitée en profondeur (graphiques dédiés)
-- [ ] Rédaction des conclusions avec garde-fous causalité
+- [x] Corrélations et tendances par culture
+- [x] Identification des cultures les plus sensibles et des années atypiques
+- [x] Au moins une culture traitée en profondeur (graphiques dédiés)
+- [x] Rédaction des conclusions avec garde-fous causalité
 
 ## Feature 4 — Visualisations statiques
 

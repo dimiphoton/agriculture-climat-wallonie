@@ -21,3 +21,8 @@ def processed_dir() -> Path:
 def docs_dir() -> Path:
     """Dossier de documentation du dépôt (EDA, décisions, présentations)."""
     return repo_root() / "docs"
+
+
+def pictures_experiments_dir() -> Path:
+    """Graphiques d'analyse (pas les figures polies du README)."""
+    return repo_root() / "pictures" / "experiments"
