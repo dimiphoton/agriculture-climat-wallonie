@@ -4,28 +4,31 @@ theme: default
 paginate: true
 ---
 
-# [Project name]
+# Walloon crop yields and climate
 
-*Updated at each completed roadmap milestone.*
+![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python&logoColor=white)
+![pandas](https://img.shields.io/badge/pandas-2.x-150458?logo=pandas&logoColor=white)
 
-<!-- stack badges, e.g. ![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python&logoColor=white) -->
+*Which crops are most exposed to difficult climate years?*
 
 ---
 
 ## The problem
 
-Plain language, no jargon.
+Droughts, excess rain and heat waves hit Walloon harvests. Cooperatives,
+insurers and public bodies need a clear picture: **which crops, which
+years**.
 
 ---
 
 ## The data
 
-One sentence.
+Official yields by crop (Wallonia and provinces, 2000–2024) combined with
+temperature, rainfall and evapotranspiration over the same period.
 
 ---
 
-## The result
+## Where we are
 
-What this concretely enables to do or decide.
-
-<!-- ![Result](../../pictures/presentations/to-replace.png) -->
+The dataset is assembled and cleaned, ready for analysis. Charts, crop-level
+diagnostics and the dashboard come next.
