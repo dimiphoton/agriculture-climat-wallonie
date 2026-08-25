@@ -1,10 +1,28 @@
 [project]
-name = "mon-projet"
+name = "agriculture-climat-wallonie"
 version = "0.1.0"
-description = ""
+description = "Sensibilité des rendements agricoles wallons à la variabilité climatique."
 requires-python = ">=3.11"
-dependencies = []
+dependencies = [
+    "pandas>=2.2",
+    "requests>=2.32",
+    "truststore>=0.10",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+]
+
+[project.scripts]
+agri-climat = "agri_climat.cli:main"
 
 [build-system]
 requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

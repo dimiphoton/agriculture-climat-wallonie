@@ -9,12 +9,14 @@ Livrables : rapport statique (README, figures) + dashboard interactif.
 
 ## Feature 1 — Acquisition et nettoyage des données
 
-- [ ] Téléchargement / import des rendements (État de l'Agriculture Wallonne)
-- [ ] Téléchargement / import des séries climatiques (Copernicus CDS, agrégat
-      Wallonie)
-- [ ] Import complémentaire Statbel si utile (superficies, contexte)
-- [ ] Scripts `clean_rendements` et `clean_climat` dans `src/`
-- [ ] Jeux intermédiaires documentés dans `data/processed/`
+- [x] Téléchargement des rendements wallons via Eurostat `apro_cpshr`
+      (Statbel → Eurostat ; Wallonie + provinces)
+- [x] Téléchargement des séries climatiques ERA5 via Open-Meteo
+      (5 points provinciaux, agrégat Wallonie)
+- [x] Scripts `clean_rendements` et `clean_climat` dans `src/agri_climat/`
+- [x] Jeux intermédiaires dans `data/processed/` (`rendements.csv`,
+      `climat_mensuel.csv`, `climat_annuel.csv`)
+- [x] CLI `python -m agri_climat run` pour reproduire le pipeline
 
 ## Feature 2 — Consolidation et exploration
 
