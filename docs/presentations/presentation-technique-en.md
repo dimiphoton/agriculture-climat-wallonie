@@ -8,53 +8,44 @@ paginate: true
 
 ![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python&logoColor=white)
 ![pandas](https://img.shields.io/badge/pandas-2.x-150458?logo=pandas&logoColor=white)
-![requests](https://img.shields.io/badge/requests-HTTP-2b5b84)
+![scipy](https://img.shields.io/badge/scipy-stats-8CAAE6?logo=scipy&logoColor=white)
 
-*Feature 2: join, anomalies, EDA*
+*Feature 3: statistical analysis*
 
 ---
 
 ## Framing
 
-Question: sensitivity of Walloon crop yields to **recent** climate
-variability. Primary approach: statistical analysis / BI. Map and a simple
-ML baseline come later. No climate-model scenario in the observed table.
+Question: sensitivity of Walloon yields to **recent** climate variability.
+Primary approach: statistics / BI. Map and a simple ML baseline come later.
+No CMIP6 scenario in the observed table.
 
 ---
 
 ## Method
 
-1. Eurostat `apro_cpshr`: yield = production / area (t/ha).
-2. ERA5 via Open-Meteo: five centroids, April–September season.
-3. Inner join on `geo` + `year` (2000–2024).
-4. Anomaly and z-score **per territory** vs the 2000–2024 mean.
-5. CSV + Parquet export; EDA in `docs/eda.md`.
+1. Eurostat yield (t/ha), ERA5 April–September season.
+2. OLS **detrend** year → t/ha, per crop × territory.
+3. Spearman (main) and Pearson of the **residual** vs season z-scores.
+4. Ranking = max |ρ| per crop, Wallonia; provinces = sign check only.
+5. Atypical year: residual z ≤ −1 **and** climate |z| ≥ 1.
+6. Deep-dive: wheat and spelt.
 
 ---
 
 ## Stack
 
-- **pandas**: TSV, JSON, join, aggregations.
-- **pyarrow**: Parquet (types preserved).
-- **matplotlib**: exploration notebook only (portfolio figures = F4).
-- **requests** + **truststore**: downloads.
+- **pandas**: tables, join.
+- **scipy.stats**: `linregress`, `spearmanr`, `pearsonr`.
+- **matplotlib**: heatmap and wheat series (Agg backend, no `plt.show`).
 
-Code: `src/agri_climat/data/join.py` — `python -m agri_climat run`
-
----
-
-## Quality / EDA
-
-- Coverage by crop × territory, missingness, yield ranges.
-- `imputed` flag kept after the join (BE3 fixes).
-- Granularity: region / province, not the plot.
+Code: `src/agri_climat/analyse.py` — `python -m agri_climat analyse`
 
 ---
 
 ## Limits
 
-- One climate point per province; Wallonia = unweighted mean (not UAA).
-- Single growing-season calendar (April–September).
-- **No CMIP6 / SSP** here: different question (the future), after a
-  statistical model (Feature 6 → optional Feature 9).
-- Correlation ≠ causation (Feature 3).
+- Correlation ≠ causation; no multiple-testing correction.
+- One ERA5 point per province; a single growing-season calendar.
+- Small n (14 years for grain maize / winter barley).
+- No CMIP6 / SSP (Feature 9, after a model — Feature 6).

@@ -1,5 +1,11 @@
 # Journal de développement
 
+## 2026-08-25 — Feature 3 : analyse statistique
+
+- Sensibilité par culture (Spearman sur résidu de rendement vs climat de
+  saison), années atypiques, zoom froment ; rapport `docs/analyse.md`.
+- Garde-fou : corrélation ≠ causalité ; provinces en contrôle de signe.
+
 ## 2026-08-25 — Feature 2 : jointure et EDA
 
 - Table `rendements_climat` (CSV + Parquet), anomalies climatiques par

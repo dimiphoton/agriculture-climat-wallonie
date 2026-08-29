@@ -8,53 +8,44 @@ paginate: true
 
 ![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python&logoColor=white)
 ![pandas](https://img.shields.io/badge/pandas-2.x-150458?logo=pandas&logoColor=white)
-![requests](https://img.shields.io/badge/requests-HTTP-2b5b84)
+![scipy](https://img.shields.io/badge/scipy-stats-8CAAE6?logo=scipy&logoColor=white)
 
-*Feature 2 : jointure, anomalies, EDA*
+*Feature 3 : analyse statistique*
 
 ---
 
 ## Cadrage
 
 Question : sensibilité des rendements wallons aux variations climatiques
-**récentes**. Approche dominante : analyse statistique / BI. Carte et ML
-basique en complément. Pas de scénario climatique dans le jeu observé.
+**récentes**. Approche dominante : statistique / BI. Carte et ML basique
+ensuite. Pas de scénario CMIP6 dans le jeu observé.
 
 ---
 
 ## Méthodologie
 
-1. Eurostat `apro_cpshr` : rendement = production / superficie (t/ha).
-2. ERA5 via Open-Meteo : 5 centroïdes, saison avril–septembre.
-3. Jointure interne sur `geo` + `year` (2000–2024).
-4. Anomalie et z-score **par territoire** vs moyenne 2000–2024.
-5. Export CSV + Parquet ; EDA dans `docs/eda.md`.
+1. Rendement Eurostat (t/ha), climat ERA5 saison avril–septembre.
+2. **Détrend** OLS année → t/ha, par culture × territoire.
+3. Spearman (principal) et Pearson du **résidu** vs z-scores de saison.
+4. Classement = |ρ| max par culture, Wallonie ; provinces = contrôle de signe.
+5. Année atypique : résidu z ≤ −1 **et** |z| climatique ≥ 1.
+6. Zoom : froment et épeautre.
 
 ---
 
 ## Stack
 
-- **pandas** : TSV, JSON, jointure, agrégations.
-- **pyarrow** : Parquet (types préservés).
-- **matplotlib** : notebook d’exploration seulement (figures portfolio = F4).
-- **requests** + **truststore** : téléchargements.
+- **pandas** : tables, jointure.
+- **scipy.stats** : `linregress`, `spearmanr`, `pearsonr`.
+- **matplotlib** : heatmap et série froment (backend Agg, pas de `plt.show`).
 
-Code : `src/agri_climat/data/join.py` — `python -m agri_climat run`
-
----
-
-## Qualité / EDA
-
-- Couverture culture × territoire, manquants, bornes de rendements.
-- Flag `imputed` conservé après jointure (corrections BE3).
-- Granularité : région / province, pas la parcelle.
+Code : `src/agri_climat/analyse.py` — `python -m agri_climat analyse`
 
 ---
 
 ## Limites
 
-- Un point climat par province, Wallonie = moyenne non pondérée par la SAU.
-- Calendrier cultural unique (avril–septembre).
-- **Pas de CMIP6 / SSP** ici : autre question (futur), après un modèle
-  statistique (Feature 6 → Feature 9 optionnelle).
-- Corrélation ≠ causalité (Feature 3).
+- Corrélation ≠ causalité ; pas de correction pour tests multiples.
+- Un point ERA5 par province ; calendrier cultural unique.
+- n petit (14 ans pour maïs grain / orge d’hiver).
+- Pas de CMIP6 / SSP (Feature 9, après un modèle — Feature 6).

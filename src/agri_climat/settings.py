@@ -70,6 +70,18 @@ CLIMATE_ANNUAL_VALUE_COLS: tuple[str, ...] = (
     "et0_growing_mm",
 )
 
+# Feature 3 : z-scores de saison (avril–septembre) utilisés pour les corrélations.
+GROWING_SEASON_Z_COLS: tuple[tuple[str, str], ...] = (
+    ("temp_mean_growing_c_z", "température saison"),
+    ("precip_growing_mm_z", "précipitations saison"),
+    ("et0_growing_mm_z", "ET0 saison"),
+)
+FOCUS_CROP_CODE = "C1110"  # froment et épeautre
+MIN_OBS_CORR = 8
+# Année atypique : résidu de rendement ≤ −1 σ et au moins un |z| climatique ≥ 1.
+YIELD_RESID_Z_MAX = -1.0
+CLIMATE_EXTREME_ABS_Z = 1.0
+
 HTTP_TIMEOUT_S = 60
 HTTP_USER_AGENT = "agriculture-climat-wallonie/0.1 (portfolio; pandas pipeline)"
 

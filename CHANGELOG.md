@@ -2,6 +2,15 @@
 
 ## [Non publié]
 
+### Feature 3 — Analyse statistique
+
+- Corrélations (Spearman + Pearson) entre **résidu** de rendement (tendance
+  linéaire ôtée) et z-scores climatiques de saison, par culture, Wallonie.
+- Classement de sensibilité, années atypiques (filtre rendement + climat),
+  zoom froment ; robustesse = signe du Spearman dans les provinces (sans pool).
+- Rapport `docs/analyse.md`, PNG dans `pictures/experiments/`,
+  `python -m agri_climat analyse`. Dépendance : `scipy`.
+
 ### Feature 2 — Jointure et EDA
 
 - Table consolidée `rendements_climat` (CSV + Parquet) : jointure interne
