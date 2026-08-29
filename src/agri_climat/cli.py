@@ -1,4 +1,4 @@
-"""Point d'entrée en ligne de commande : pipeline jusqu'à la carte de synthèse."""
+"""Point d'entrée en ligne de commande : pipeline jusqu'au ML basique."""
 
 from __future__ import annotations
 
@@ -80,10 +80,16 @@ def _cmd_map() -> None:
     run_map()
 
 
+def _cmd_ml() -> None:
+    from agri_climat.ml import run_ml
+
+    run_ml()
+
+
 def build_parser() -> argparse.ArgumentParser:
     """Construit le parseur CLI."""
     parser = argparse.ArgumentParser(
-        description="Pipeline agriculture-climat Wallonie (download, clean, join, analyse, figures, map).",
+        description="Pipeline agriculture-climat Wallonie (download, clean, join, analyse, figures, map, ml).",
     )
     sub = parser.add_subparsers(dest="command", required=True)
 
@@ -124,8 +130,12 @@ def build_parser() -> argparse.ArgumentParser:
         help="Choroplèthe provinciale froment (PNG README + GeoJSON).",
     )
     sub.add_parser(
+        "ml",
+        help="Baseline linéaire leave-one-year-out (rapport + PNG).",
+    )
+    sub.add_parser(
         "run",
-        help="Télécharger, nettoyer, joindre, analyser, figures, puis carte.",
+        help="Télécharger, nettoyer, joindre, analyser, figures, carte, puis ML.",
     )
     return parser
 
@@ -161,6 +171,8 @@ def main(argv: list[str] | None = None) -> int:
             _cmd_figures()
         elif args.command == "map":
             _cmd_map()
+        elif args.command == "ml":
+            _cmd_ml()
         elif args.command == "run":
             _cmd_download("all")
             _cmd_clean("all")
@@ -168,6 +180,7 @@ def main(argv: list[str] | None = None) -> int:
             _cmd_analyse()
             _cmd_figures()
             _cmd_map()
+            _cmd_ml()
     except FileNotFoundError as exc:
         logger.error("%s — lancer d'abord : python -m agri_climat clean (ou run)", exc)
         return 1

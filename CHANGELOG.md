@@ -2,6 +2,17 @@
 
 ## [Non publié]
 
+### Feature 6 — ML basique
+
+- Régression linéaire (scikit-learn) : résidu de rendement ~ z-scores de
+  saison, Wallonie, leave-one-year-out vs baseline naïve (prédire 0).
+- Rapport `docs/ml.md`, CSV `ml_metrics.csv`, PNG froment
+  (`pictures/experiments/`) et ratio MAE README
+  (`pictures/readme/ml-mae-vs-naive.png`). `python -m agri_climat ml`
+  (inclus dans `run`).
+- Froment : MAE 0,51 → 0,38 t/ha (R² LOO ≈ 0,40) ; pour la plupart des
+  autres cultures le modèle à 3 variables ne bat pas la naïve.
+
 ### Feature 5 — Carte de synthèse
 
 - Choroplèthe provinciale (NUTS 2) : Spearman froment × pluie de saison, et

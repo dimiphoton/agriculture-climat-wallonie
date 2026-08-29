@@ -106,6 +106,8 @@ GROWING_SEASON_Z_COLS: tuple[tuple[str, str], ...] = (
 )
 FOCUS_CROP_CODE = "C1110"  # froment et épeautre
 MIN_OBS_CORR = 8
+# Feature 6 : 3 prédicteurs climatiques ; n trop petit → coefficients instables.
+MIN_OBS_ML = 10
 # Carte : année atypique déjà mise en avant dans l'analyse (Feature 3–4).
 MAP_FOCUS_YEAR = 2024
 MAP_FOCUS_CLIMATE_VAR = "precip_growing_mm_z"

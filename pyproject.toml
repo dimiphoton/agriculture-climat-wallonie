@@ -8,6 +8,7 @@ dependencies = [
     "pyarrow>=16.0",
     "matplotlib>=3.9",
     "scipy>=1.13",
+    "scikit-learn>=1.5",
     "requests>=2.32",
     "truststore>=0.10",
 ]
