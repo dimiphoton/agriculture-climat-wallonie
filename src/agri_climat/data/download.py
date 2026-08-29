@@ -23,10 +23,12 @@ from agri_climat.settings import (
     EUROSTAT_DATASET,
     EUROSTAT_SDMX_URL,
     GEO_LABELS_FR,
+    GISCO_NUTS2_URL,
     HTTP_TIMEOUT_S,
     HTTP_USER_AGENT,
     OPEN_METEO_ARCHIVE_URL,
     OPEN_METEO_DAILY_VARS,
+    PROVINCE_CODES,
     START_YEAR,
 )
 
@@ -154,3 +156,89 @@ def download_climat(raw_root: Path) -> list[Path]:
         written.append(target)
         time.sleep(2)
     return written
+
+
+def nuts_raw_path(raw_root: Path) -> Path:
+    """Chemin du GeoJSON GISCO brut (NUTS 2 Europe)."""
+    return raw_root / "gisco_nuts2_2021_10m.geojson"
+
+
+def nuts_processed_path(processed_root: Path) -> Path:
+    """Chemin du GeoJSON filtré (cinq provinces wallonnes)."""
+    return processed_root / "nuts2_wallonie.geojson"
+
+
+def _feature_nuts_id(feat: dict) -> str:
+    """Lit l'identifiant NUTS (propriété GISCO ou ``id`` de la feature)."""
+    props = feat.get("properties") or {}
+    return str(props.get("NUTS_ID") or feat.get("id") or "")
+
+
+def filter_walloon_nuts(geojson: dict) -> dict:
+    """Garde uniquement les provinces wallonnes (BE31–BE35).
+
+    Parameters
+    ----------
+    geojson
+        FeatureCollection GISCO NUTS 2.
+
+    Returns
+    -------
+    dict
+        FeatureCollection réduite.
+    """
+    features = [
+        feat
+        for feat in geojson.get("features", [])
+        if _feature_nuts_id(feat) in PROVINCE_CODES
+    ]
+    return {"type": "FeatureCollection", "features": features}
+
+
+def download_nuts_provinces(raw_root: Path, processed_root: Path) -> Path:
+    """Télécharge GISCO NUTS 2 et écrit le sous-ensemble wallon.
+
+    Parameters
+    ----------
+    raw_root
+        Dossier ``data/raw`` (fichier Europe, gitignored).
+    processed_root
+        Dossier ``data/processed`` (cinq provinces).
+
+    Returns
+    -------
+    Path
+        GeoJSON filtré.
+
+    Raises
+    ------
+    requests.HTTPError
+        Si GISCO répond une erreur HTTP.
+    ValueError
+        Si aucune province wallonne n'est trouvée dans le fichier.
+    """
+    raw_root.mkdir(parents=True, exist_ok=True)
+    processed_root.mkdir(parents=True, exist_ok=True)
+    raw_path = nuts_raw_path(raw_root)
+    if not raw_path.exists():
+        logger.info("Téléchargement GISCO NUTS 2 %s", GISCO_NUTS2_URL)
+        response = _get_with_retry(GISCO_NUTS2_URL)
+        raw_path.write_bytes(response.content)
+        logger.info("Écrit %s (%s octets)", raw_path, raw_path.stat().st_size)
+    else:
+        logger.info("Déjà présent, on saute %s", raw_path.name)
+
+    geojson = json.loads(raw_path.read_text(encoding="utf-8"))
+    filtered = filter_walloon_nuts(geojson)
+    if len(filtered["features"]) != len(PROVINCE_CODES):
+        found = [f["properties"].get("NUTS_ID") for f in filtered["features"]]
+        raise ValueError(
+            f"Provinces GISCO inattendues : {found} (attendu {list(PROVINCE_CODES)})"
+        )
+    target = nuts_processed_path(processed_root)
+    target.write_text(
+        json.dumps(filtered, ensure_ascii=False),
+        encoding="utf-8",
+    )
+    logger.info("Écrit %s", target)
+    return target

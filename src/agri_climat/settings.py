@@ -52,6 +52,16 @@ GEO_LABELS_FR: dict[str, str] = {
     "BE35": "Namur",
 }
 
+# Libellés courts pour la carte README (anglais).
+GEO_LABELS_EN: dict[str, str] = {
+    "BE3": "Wallonia",
+    "BE31": "W. Brabant",
+    "BE32": "Hainaut",
+    "BE33": "Liège",
+    "BE34": "Luxembourg",
+    "BE35": "Namur",
+}
+
 WALLONIA_NUTS1 = "BE3"
 PROVINCE_CODES: tuple[str, ...] = ("BE31", "BE32", "BE33", "BE34", "BE35")
 
@@ -96,6 +106,14 @@ GROWING_SEASON_Z_COLS: tuple[tuple[str, str], ...] = (
 )
 FOCUS_CROP_CODE = "C1110"  # froment et épeautre
 MIN_OBS_CORR = 8
+# Carte : année atypique déjà mise en avant dans l'analyse (Feature 3–4).
+MAP_FOCUS_YEAR = 2024
+MAP_FOCUS_CLIMATE_VAR = "precip_growing_mm_z"
+# Polygones NUTS 2, 1:10 million, WGS84 — source Eurostat GISCO.
+GISCO_NUTS2_URL = (
+    "https://gisco-services.ec.europa.eu/distribution/v2/nuts/geojson/"
+    "NUTS_RG_10M_2021_4326_LEVL_2.geojson"
+)
 # Année atypique : résidu de rendement ≤ −1 σ et au moins un |z| climatique ≥ 1.
 YIELD_RESID_Z_MAX = -1.0
 CLIMATE_EXTREME_ABS_Z = 1.0

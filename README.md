@@ -68,6 +68,12 @@ barley. Gold bands mark years with at least two crops below trend.
 
 ![At-risk years](pictures/readme/at-risk-years.png)
 
+The wheat–rainfall signal is **negative in every Walloon province** (not a
+Wallonia-only artefact). In **2024**, wheat residuals sit below trend
+across the region. Boundaries: © Eurostat GISCO, NUTS 2021, 1:10 million.
+
+![Wheat by province](pictures/readme/wheat-provinces-map.png)
+
 **Takeaway for a sector reader** (cooperative, insurer, administration):
 watch **wheat in very wet growing seasons** and **potato / grain maize in
 hot-dry summers**. Treat this as an observed co-movement, not a forecast
@@ -86,6 +92,8 @@ and not a proof that rainfall *caused* the 2024 wheat dip.
   variables.
 - Observation 2000–2024 only. CMIP6 / SSP scenarios stay out of scope
   until after a simple model (Feature 6 → optional Feature 9).
+- The map is **five NUTS 2 provinces**, not municipalities or fields.
+  GISCO 1:10 million outlines are schematic.
 
 ## Reproduce
 
@@ -106,22 +114,26 @@ python -m agri_climat join              # join + anomalies + docs/eda.md
 python -m agri_climat eda               # tables + PNG, no GUI
 python -m agri_climat analyse           # correlations, atypical years, wheat
 python -m agri_climat figures           # README PNGs in pictures/readme/
+python -m agri_climat map               # provincial choropleth (wheat)
 python -m agri_climat download climat   # climate only
+python -m agri_climat download nuts     # GISCO NUTS 2 polygons
 ```
 
 Internet access is needed for the first download (Eurostat and Open-Meteo).
-Afterwards, `clean`, `join`, `analyse` and `figures` work offline from
-`data/raw/` (join needs the cleaned CSVs). Fast preview (no Jupyter window):
+Afterwards, `clean`, `join`, `analyse`, `figures` and `map` work offline from
+`data/raw/` (join needs the cleaned CSVs; `map` needs the processed NUTS
+GeoJSON). Fast preview (no Jupyter window):
 
 ```bash
 python -m agri_climat eda
 python -m agri_climat figures
+python -m agri_climat map
 ```
 
 Do not use `plt.show()` — on Windows the Tk window can hang for minutes.
 Optional notebooks (kernel = project `.venv`):
 `notebooks/02-eda-jointure.ipynb`, `notebooks/03-analyse.ipynb`,
-`notebooks/04-figures.ipynb`.
+`notebooks/04-figures.ipynb`, `notebooks/05-carte.ipynb`.
 
 ## Repo structure
 
@@ -129,7 +141,7 @@ Optional notebooks (kernel = project `.venv`):
 brief/                 # original goal and portfolio brief
 data/raw/              # downloaded files (gitignored)
 data/processed/        # clean and joined tables (CSV / Parquet)
-src/agri_climat/       # download, clean, join, analyse, figures, CLI
+src/agri_climat/       # download, clean, join, analyse, figures, map, CLI
 notebooks/             # notebooks (call src/, no duplicated logic)
 tests/                 # unit tests
 docs/                  # decisions, EDA, statistical note, Marp presentations

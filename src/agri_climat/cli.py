@@ -1,4 +1,4 @@
-"""Point d'entrée en ligne de commande : pipeline jusqu'aux figures README."""
+"""Point d'entrée en ligne de commande : pipeline jusqu'à la carte de synthèse."""
 
 from __future__ import annotations
 
@@ -16,6 +16,7 @@ from agri_climat.data.clean_climat import clean_climat_files
 from agri_climat.data.clean_rendements import clean_rendements_file
 from agri_climat.data.download import (
     download_climat,
+    download_nuts_provinces,
     download_rendements,
     rendements_raw_path,
 )
@@ -38,6 +39,8 @@ def _cmd_download(kind: str) -> None:
         download_rendements(raw)
     if kind in {"climat", "all"}:
         download_climat(raw)
+    if kind in {"nuts", "all"}:
+        download_nuts_provinces(raw, processed_dir())
 
 
 def _cmd_clean(kind: str) -> None:
@@ -71,10 +74,16 @@ def _cmd_figures() -> None:
     run_figures()
 
 
+def _cmd_map() -> None:
+    from agri_climat.map import run_map
+
+    run_map()
+
+
 def build_parser() -> argparse.ArgumentParser:
     """Construit le parseur CLI."""
     parser = argparse.ArgumentParser(
-        description="Pipeline agriculture-climat Wallonie (download, clean, join, analyse, figures).",
+        description="Pipeline agriculture-climat Wallonie (download, clean, join, analyse, figures, map).",
     )
     sub = parser.add_subparsers(dest="command", required=True)
 
@@ -83,7 +92,7 @@ def build_parser() -> argparse.ArgumentParser:
         "kind",
         nargs="?",
         default="all",
-        choices=["all", "rendements", "climat"],
+        choices=["all", "rendements", "climat", "nuts"],
     )
 
     clean = sub.add_parser("clean", help="Nettoyer les fichiers déjà téléchargés.")
@@ -111,8 +120,12 @@ def build_parser() -> argparse.ArgumentParser:
         help="PNG polies pour le README (ranking, nuages, années à risque).",
     )
     sub.add_parser(
+        "map",
+        help="Choroplèthe provinciale froment (PNG README + GeoJSON).",
+    )
+    sub.add_parser(
         "run",
-        help="Télécharger, nettoyer, joindre, analyser, puis figures README.",
+        help="Télécharger, nettoyer, joindre, analyser, figures, puis carte.",
     )
     return parser
 
@@ -146,12 +159,15 @@ def main(argv: list[str] | None = None) -> int:
             _cmd_analyse()
         elif args.command == "figures":
             _cmd_figures()
+        elif args.command == "map":
+            _cmd_map()
         elif args.command == "run":
             _cmd_download("all")
             _cmd_clean("all")
             _cmd_join()
             _cmd_analyse()
             _cmd_figures()
+            _cmd_map()
     except FileNotFoundError as exc:
         logger.error("%s — lancer d'abord : python -m agri_climat clean (ou run)", exc)
         return 1

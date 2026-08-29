@@ -41,10 +41,10 @@ Livrables : rapport statique (README, figures) + dashboard interactif.
 
 ## Feature 5 — Carte de synthèse
 
-- [ ] Choix du niveau géographique réaliste (province, arrondissement, ou
+- [x] Choix du niveau géographique réaliste (province, arrondissement, ou
       Wallonie selon les données)
-- [ ] Carte choroplèthe ou équivalent (folium / plotly — à valider)
-- [ ] Intégration au rapport statique et préparation pour le dashboard
+- [x] Carte choroplèthe ou équivalent (folium / plotly — à valider)
+- [x] Intégration au rapport statique et préparation pour le dashboard
 
 ## Feature 6 — ML basique (complément)
 
