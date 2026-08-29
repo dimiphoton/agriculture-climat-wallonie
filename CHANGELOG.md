@@ -2,6 +2,14 @@
 
 ## [Non publié]
 
+### Feature 7 — Dashboard interactif
+
+- App Streamlit (`webapp/app.py`) : filtres culture / période, séries
+  Plotly, classement Spearman, années atypiques, choroplèthe NUTS 2
+  (GeoJSON déjà produit en Feature 5).
+- `python -m agri_climat dashboard` (pas inclus dans `run` : ça lance un
+  serveur). Logique dans `src/agri_climat/dashboard.py`.
+
 ### Feature 6 — ML basique
 
 - Régression linéaire (scikit-learn) : résidu de rendement ~ z-scores de

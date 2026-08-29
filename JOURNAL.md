@@ -1,5 +1,11 @@
 # Journal de développement
 
+## 2026-08-29 — Feature 7 : dashboard interactif
+
+- Streamlit + Plotly : filtres culture / période, séries, classement,
+  années atypiques, carte NUTS 2 ; `python -m agri_climat dashboard`.
+- Classement Spearman = série entière (le slider ne le recalcule pas).
+
 ## 2026-08-29 — Feature 6 : ML basique
 
 - Régression linéaire leave-one-year-out (résidu ~ z-scores de saison)

@@ -10,8 +10,9 @@ paginate: true
 ![pandas](https://img.shields.io/badge/pandas-2.x-150458?logo=pandas&logoColor=white)
 ![scipy](https://img.shields.io/badge/scipy-stats-8CAAE6?logo=scipy&logoColor=white)
 ![scikit-learn](https://img.shields.io/badge/scikit--learn-1.x-F7931E?logo=scikitlearn&logoColor=white)
+![Streamlit](https://img.shields.io/badge/Streamlit-dashboard-FF4B4B?logo=streamlit&logoColor=white)
 
-*Which crops, which years — plus a simple check*
+*Which crops, which years — plus a dashboard to explore*
 
 ---
 
@@ -41,25 +42,21 @@ that climate caused the loss.
 ## First finding (Wallonia)
 
 - **Wheat**: strongest link with seasonal rainfall. Wetter seasons tend
-  to sit below the yield trend — **2024** in particular. All five
-  provinces share the same sign.
+  to sit below the yield trend — **2024** in particular.
 - **Potato**: link with seasonal heat.
 - **2018** (hot and dry): grain maize and potato below trend.
 
 ---
 
-## A simple check
+## Explore
 
-Year by year (without looking at that year itself), does the season help
-place the harvest gap? **For wheat, yes — mainly via rainfall.** For most
-other crops, adding heat and evapotranspiration does not really improve the
-diagnosis.
-
-This is not a forecast, and not a cause.
+A dashboard lets you pick a crop and period, then see the series, at-risk
+years and the provincial map. The sensitivity ranking stays the full-series
+result — sliding the years does not rewrite the league table.
 
 ---
 
 ## Where we are
 
-A sensitivity ranking, at-risk years, a provincial map, and this linear
-check. The interactive dashboard comes next.
+Static report, map, linear check, and dashboard. Future climate scenarios
+stay out of scope.
