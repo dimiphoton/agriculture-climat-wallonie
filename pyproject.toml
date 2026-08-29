@@ -1,10 +1,11 @@
 [project]
 name = "agriculture-climat-wallonie"
 version = "0.1.0"
-description = "Sensibilité des rendements agricoles wallons à la variabilité climatique."
+description = "Intégration SQL (DuckDB) des rendements wallons et du climat journalier."
 requires-python = ">=3.11"
 dependencies = [
     "pandas>=2.2",
+    "duckdb>=1.2",
     "pyarrow>=16.0",
     "matplotlib>=3.9",
     "scipy>=1.13",

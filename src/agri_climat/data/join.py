@@ -1,4 +1,4 @@
-"""Jointure rendements × climat annuel et résumé d'exploration (EDA)."""
+"""EDA sur la table consolidée (la jointure elle-même est en SQL / DuckDB)."""
 
 from __future__ import annotations
 
@@ -229,6 +229,9 @@ def build_eda_markdown(joined: pd.DataFrame) -> str:
     parts = [
         "# Exploration — table rendements × climat",
         "",
+        "Table exportée de la vue DuckDB ``v_rendements_climat`` "
+        "(schéma : ``sql/schema.sql``).",
+        "",
         f"Période observée : {int(years.min())}–{int(years.max())} "
         f"(référence d'anomalie climatique = {START_YEAR}–{END_YEAR} "
         "par territoire).",
@@ -257,7 +260,9 @@ def build_eda_markdown(joined: pd.DataFrame) -> str:
         "  des parcelles, ni une pondération par la SAU.",
         "- Saison de végétation unique (avril–septembre) pour toutes les cultures.",
         "- Rendement = production / superficie (Eurostat) ; quelques BE3 imputés.",
-        "- Jointure interne : les années absentes d'une source sont écartées.",
+        "- Jointure interne SQL (vue ``v_rendements_climat``) : les années",
+        "  absentes d'une source sont écartées. Agrégation journalier → annuel",
+        "  dans ``sql/schema.sql`` (pas un ``pd.merge`` amont).",
         "- Corrélation ≠ causalité (analyse statistique : feature 3).",
         "- Pas de scénario CMIP6 / SSP dans cette table (observation seule).",
         "",
@@ -266,7 +271,7 @@ def build_eda_markdown(joined: pd.DataFrame) -> str:
 
 
 def join_processed_files(processed_root: Path, docs_root: Path | None = None) -> Path:
-    """Lit les CSV nettoyés, écrit la table consolidée et le rapport EDA.
+    """Construit l'entrepôt DuckDB, exporte les vues, écrit le rapport EDA.
 
     Parameters
     ----------
@@ -278,31 +283,17 @@ def join_processed_files(processed_root: Path, docs_root: Path | None = None) ->
     Returns
     -------
     Path
-        Chemin du CSV consolidé.
+        Chemin du CSV consolidé (export de ``v_rendements_climat``).
 
     Raises
     ------
     FileNotFoundError
-        Si ``rendements.csv`` ou ``climat_annuel.csv`` est absent.
+        Si ``rendements.csv`` ou ``climat_quotidien.csv`` est absent.
     """
-    rend_path = processed_root / "rendements.csv"
-    clim_path = processed_root / "climat_annuel.csv"
-    if not rend_path.exists():
-        raise FileNotFoundError(rend_path)
-    if not clim_path.exists():
-        raise FileNotFoundError(clim_path)
+    from agri_climat.data.warehouse import build_warehouse
 
-    rendements = pd.read_csv(rend_path)
-    climat = pd.read_csv(clim_path)
-    joined = join_rendements_climat(rendements, climat)
-
-    processed_root.mkdir(parents=True, exist_ok=True)
+    joined = build_warehouse(processed_root)
     csv_path = processed_root / "rendements_climat.csv"
-    parquet_path = processed_root / "rendements_climat.parquet"
-    joined.to_csv(csv_path, index=False)
-    joined.to_parquet(parquet_path, index=False)
-    logger.info("Écrit %s (%s lignes)", csv_path, len(joined))
-    logger.info("Écrit %s", parquet_path)
 
     if docs_root is not None:
         docs_root.mkdir(parents=True, exist_ok=True)

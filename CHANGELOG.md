@@ -2,11 +2,22 @@
 
 ## [Non publié]
 
+### Brief — intégration SQL (DuckDB)
+
+- Cœur du projet recalé sur le brief : faits au grain natif (rendements
+  annuels, climat **journalier**), vues SQL pour l'agrégation (moyenne,
+  cumul, jours au-dessus d'un seuil), z-scores en fenêtre, INNER JOIN.
+- `sql/schema.sql` + `sql/queries.sql` (CTE, `regr_slope`, rangs Spearman,
+  indice de risque). `python -m agri_climat join` régénère
+  `agri_climat.duckdb` ; `python -m agri_climat sql` rejoue les requêtes.
+- pandas reste pour parser Eurostat / Open-Meteo et pour l'analyse
+  statistique / figures en aval des vues.
+
 ### Feature 8 — Portfolio
 
-- Quatre decks Marp **thème `agri`** : couvertures photo, slides punch,
-  graphes sans titre matplotlib (le message est dans la typo). Pied de
-  slide → `docs/explore-{fr,en}.html`. `python -m agri_climat slides`.
+- Quatre decks Marp **thème `agri`** : problème, méthode, graphes sous
+  `docs/pictures/presentations/` (GitHub Pages). Pied de slide →
+  `docs/explore-{fr,en}.html`. `python -m agri_climat slides`.
 
 ### Feature 7 — Dashboard interactif
 

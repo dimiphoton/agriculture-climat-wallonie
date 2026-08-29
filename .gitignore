@@ -9,6 +9,10 @@ venv/
 .DS_Store
 tmp_probe/
 
+# Base DuckDB : régénérée par `python -m agri_climat join`
+*.duckdb
+*.duckdb.wal
+
 # Données brutes : pas de commit (taille/licence), on garde juste la structure
 data/raw/*
 !data/raw/.gitkeep

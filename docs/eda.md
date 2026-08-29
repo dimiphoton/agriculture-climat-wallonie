@@ -1,5 +1,7 @@
 # Exploration — table rendements × climat
 
+Table exportée de la vue DuckDB ``v_rendements_climat`` (schéma : ``sql/schema.sql``).
+
 Période observée : 2000–2024 (référence d'anomalie climatique = 2000–2024 par territoire).
 
 - Lignes : **1068** (culture × geo × année).
@@ -37,9 +39,9 @@ Période observée : 2000–2024 (référence d'anomalie climatique = 2000–202
 
 | indicateur | annee_min | z_min | annee_max | z_max |
 | --- | --- | --- | --- | --- |
-| température saison (z) | 2021 | -1.824 | 2018 | 2.345 |
-| précipitations saison (z) | 2018 | -1.821 | 2024 | 2.32 |
-| ET0 saison (z) | 2000 | -1.246 | 2020 | 2.107 |
+| température saison (z) | 2021 | -1.852 | 2018 | 2.362 |
+| précipitations saison (z) | 2018 | -1.822 | 2024 | 2.32 |
+| ET0 saison (z) | 2000 | -1.245 | 2020 | 2.106 |
 
 ## Valeurs manquantes
 
@@ -55,6 +57,8 @@ Période observée : 2000–2024 (référence d'anomalie climatique = 2000–202
   des parcelles, ni une pondération par la SAU.
 - Saison de végétation unique (avril–septembre) pour toutes les cultures.
 - Rendement = production / superficie (Eurostat) ; quelques BE3 imputés.
-- Jointure interne : les années absentes d'une source sont écartées.
+- Jointure interne SQL (vue ``v_rendements_climat``) : les années
+  absentes d'une source sont écartées. Agrégation journalier → annuel
+  dans ``sql/schema.sql`` (pas un ``pd.merge`` amont).
 - Corrélation ≠ causalité (analyse statistique : feature 3).
 - Pas de scénario CMIP6 / SSP dans cette table (observation seule).

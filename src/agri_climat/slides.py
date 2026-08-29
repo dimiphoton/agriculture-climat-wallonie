@@ -11,6 +11,7 @@ import pandas as pd
 
 from agri_climat.analyse import (
     add_yield_residuals,
+    atypical_years,
     correlations_by_crop,
     sensitivity_ranking,
 )
@@ -28,6 +29,7 @@ from agri_climat.settings import (
     FOCUS_CROP_CODE,
     GEO_LABELS_EN,
     GEO_LABELS_FR,
+    MAP_FOCUS_YEAR,
     WALLONIA_NUTS1,
 )
 
@@ -196,7 +198,55 @@ def plot_slide_detrend(table: pd.DataFrame, lang: str) -> Figure:
         label="Tendance (progrès, etc.)" if lang == "fr" else "Long-term trend",
     )
     ax.set_ylabel("t/ha", fontsize=12)
+    # 2024 : le creux que le brief demande de voir, pas seulement la droite.
+    mark = wheat[wheat["year"] == MAP_FOCUS_YEAR]
+    if not mark.empty:
+        y_mark = float(mark["yield_t_ha"].iloc[0])
+        ax.scatter([MAP_FOCUS_YEAR], [y_mark], s=70, color=_HEAT, zorder=5)
+        ax.annotate(
+            str(MAP_FOCUS_YEAR),
+            (MAP_FOCUS_YEAR, y_mark),
+            xytext=(-28, -18),
+            textcoords="offset points",
+            fontsize=11,
+            color=_HEAT,
+            fontweight="bold",
+        )
     ax.legend(frameon=False, fontsize=11)
+    _style(ax)
+    _cream(fig, ax)
+    fig.tight_layout()
+    return fig
+
+
+def plot_slide_atrisk(atypical: pd.DataFrame, years: pd.Series, lang: str) -> Figure:
+    """Cultures flaggées par année (filtre rendement sous tendance + climat).
+
+    Parameters
+    ----------
+    atypical
+        Sortie de ``atypical_years``.
+    years
+        Années wallonnes à afficher (même si zéro culture flaggée).
+    lang
+        ``fr`` ou ``en``.
+
+    Returns
+    -------
+    matplotlib.figure.Figure
+        Un message : 2024 sort du lot.
+    """
+    import matplotlib.pyplot as plt
+
+    fig, ax = plt.subplots(figsize=(9.0, 4.0))
+    if atypical.empty:
+        counts = pd.Series(0, index=years, dtype=int)
+    else:
+        counts = atypical.groupby("year").size().reindex(years, fill_value=0)
+    colors = [_HEAT if int(year) == MAP_FOCUS_YEAR else "0.45" for year in counts.index]
+    ax.bar(counts.index.astype(int), counts.to_numpy(), color=colors, width=0.8)
+    ax.set_ylabel("Cultures flaggées" if lang == "fr" else "Crops flagged")
+    ax.set_ylim(0, max(1, int(counts.max()) + 1))
     _style(ax)
     _cream(fig, ax)
     fig.tight_layout()
@@ -258,7 +308,7 @@ def run_slide_figures(
     processed_root
         ``data/processed``.
     figures_root
-        ``pictures/presentations``.
+        ``docs/pictures/presentations``.
     explore_root
         Dossier des HTML ``explore-*.html`` (défaut : ``docs/``).
 
@@ -283,6 +333,10 @@ def run_slide_figures(
 
     table = add_yield_residuals(pd.read_csv(csv_path))
     ranking = sensitivity_ranking(correlations_by_crop(table))
+    atypical = atypical_years(table)
+    wallonia_years = (
+        table.loc[table["geo"] == WALLONIA_NUTS1, "year"].drop_duplicates().sort_values()
+    )
     wheat_ml = evaluate_crop(table, FOCUS_CROP_CODE)
     mae_naive = float(wheat_ml["mae_naive"]) if pd.notna(wheat_ml["mae_naive"]) else 0.0
     mae_model = float(wheat_ml["mae_loo_multi"]) if pd.notna(wheat_ml["mae_loo_multi"]) else 0.0
@@ -308,6 +362,8 @@ def run_slide_figures(
         ("detrend-en.png", lambda: plot_slide_detrend(table, "en")),
         ("mae-fr.png", lambda: plot_slide_mae(mae_naive, mae_model, "fr")),
         ("mae-en.png", lambda: plot_slide_mae(mae_naive, mae_model, "en")),
+        ("atrisk-fr.png", lambda: plot_slide_atrisk(atypical, wallonia_years, "fr")),
+        ("atrisk-en.png", lambda: plot_slide_atrisk(atypical, wallonia_years, "en")),
     ]
     written: list[Path] = []
     for name, builder in jobs:

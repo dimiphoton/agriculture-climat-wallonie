@@ -146,22 +146,28 @@ def test_rapport_eda_contient_limites() -> None:
     assert "imputées" in text
     assert "CMIP6" in text
     assert "Corrélation ≠ causalité" in text
+    assert "schema.sql" in text
 
 
 def test_export_csv_et_parquet(tmp_path) -> None:
-    """join_processed_files écrit les deux formats et un eda.md."""
+    """join_processed_files construit DuckDB, les exports et un eda.md."""
     from agri_climat.data.join import join_processed_files
 
     processed = tmp_path / "processed"
     docs = tmp_path / "docs"
     processed.mkdir()
     _rendements().to_csv(processed / "rendements.csv", index=False)
-    _climat().to_csv(processed / "climat_annuel.csv", index=False)
+    from tests.test_warehouse import _daily_csv_rows
+
+    _daily_csv_rows().to_csv(processed / "climat_quotidien.csv", index=False)
 
     csv_path = join_processed_files(processed, docs)
     parquet_path = processed / "rendements_climat.parquet"
     assert csv_path.exists()
     assert parquet_path.exists()
+    assert (processed / "agri_climat.duckdb").exists()
     roundtrip = pd.read_parquet(parquet_path)
-    assert len(roundtrip) == 5
-    assert (docs / "eda.md").exists()
+    assert set(roundtrip["year"].unique()) == {2020, 2021}
+    eda = (docs / "eda.md").read_text(encoding="utf-8")
+    assert "v_rendements_climat" in eda
+    assert "schema.sql" in eda

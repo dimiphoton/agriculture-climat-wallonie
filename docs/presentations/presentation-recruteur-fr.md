@@ -8,90 +8,95 @@ footer: '[Tableau de bord →](../explore-fr.html)'
 <!-- _class: cover -->
 <!-- _paginate: false -->
 
-![bg brightness:0.40](../../pictures/presentations/photos/hero.png)
+# Quelles cultures wallonnes
+# sont sensibles au climat ?
 
-# Quelles cultures
-# souffrent vraiment
-# du climat récent ?
+**Intégration SQL × données agricoles**
 
-Wallonie · 2000–2024
-
----
-
-<!-- _class: split -->
-
-![bg left:46%](../../pictures/presentations/photos/hills.png)
-
-# Pas 2050.
-
-Coopératives. Assureurs. Administration.
-
-**Quelles cultures. Quelles années.**
+DuckDB · Wallonie · 2000–2024
 
 ---
 
-<!-- _class: full -->
+<!-- _class: story -->
 
-![bg brightness:0.38](../../pictures/presentations/photos/rain.png)
+## Pourquoi ce sujet
 
-# Trop d'eau.
-# Moins de froment.
+La géomatique, c'est le **territoire**. L'agriculture aussi :
+provinces, saisons, parcelles.
 
-Surtout 2024.
+Croiser rendements et climat, c'est le même geste que pour le
+carbone des sols ou le conseil agronomique — le type de travail
+d'une équipe comme **Soil Capital**.
 
 ---
 
-<!-- _class: full -->
+<!-- _class: story -->
 
-![bg brightness:0.42](../../pictures/presentations/photos/potato.png)
+## Le problème
 
-# Trop de chaleur.
-# Moins de pommes de terre.
+Les récoltes varient d'une année à l'autre. Coopératives, assureurs
+et administration veulent **prioriser** : quelles cultures, quelles années.
+
+Pas un scénario 2050. Deux tables officielles qui **ne s'emboîtent pas** :
+rendements annuels, climat journalier, géographies différentes.
+DuckDB recale les grains ; une carte des provinces contrôle le signe.
+
+**Données :** rendements Eurostat (Statbel) et climat ERA5 (Open-Meteo).
 
 ---
 
 <!-- _class: chart -->
 
-Le classement — ce qui tient.
+## Le travail : séparer progrès et climat
 
-![w:980](../../pictures/presentations/ranking-fr.png)
+On retire d'abord la tendance (génétique, technique). Le climat, c'est
+l'**écart**. Ici le froment wallon — le creux de **2024** n'est pas la droite.
 
----
-
-<!-- _class: split -->
-
-![bg left:40%](../../pictures/presentations/photos/hills.png)
-
-# Vrai dans
-# les cinq
-# provinces.
-
-![w:480](../../pictures/presentations/map-fr.png)
+![w:1050](../pictures/presentations/detrend-fr.png)
 
 ---
 
-<!-- _class: actions -->
+<!-- _class: chart -->
 
-![bg right:38%](../../pictures/presentations/photos/maize.png)
+## Résultat : le froment suit la pluie
 
-# Lundi.
+Corrélation de rangs entre l'**écart** au rendement et le climat de saison.
+Le froment baisse quand la saison est plus humide. Pomme de terre : la chaleur.
 
-**Froment** — années saturées d'eau.
-
-**Pomme de terre** — étés qui brûlent.
-
-**Maïs grain** — saisons trop sèches.
-
-Pas une cause. Un faisceau d'indices.
+![w:1050](../pictures/presentations/ranking-fr.png)
 
 ---
 
-<!-- _class: cta -->
+<!-- _class: chart -->
 
-![bg brightness:0.30](../../pictures/presentations/photos/explore.png)
+## Années à risque
 
-# À vous.
+Filtre joint : rendement nettement sous la tendance **et** climat
+extrême. **2024** (très humide) flagge six cultures.
 
-[Ouvrir le tableau de bord](../explore-fr.html)
+![w:1050](../pictures/presentations/atrisk-fr.png)
 
-[Code source](https://github.com/dimiphoton/agriculture-climat-wallonie)
+---
+
+<!-- _class: chart -->
+
+## La géographie confirme
+
+Même signe (froment × pluie) dans les cinq provinces. On ne mélange **pas**
+les territoires comme s'ils étaient indépendants.
+
+![w:620](../pictures/presentations/map-fr.png)
+
+---
+
+<!-- _class: story -->
+
+## Ce qu'on en fait
+
+- **Froment** — saisons de végétation très humides (comme 2024)
+- **Pomme de terre / maïs grain** — étés chauds et secs (comme 2018)
+
+Corrélation ≠ cause. Prix, ravageurs et variétés ne sont pas dans le modèle.
+
+[Explorer les séries](../explore-fr.html)
+· [Code source](https://github.com/dimiphoton/agriculture-climat-wallonie)

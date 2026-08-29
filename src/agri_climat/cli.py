@@ -21,6 +21,7 @@ from agri_climat.data.download import (
     rendements_raw_path,
 )
 from agri_climat.data.join import join_processed_files
+from agri_climat.data.warehouse import run_queries
 from agri_climat.paths import docs_dir, processed_dir, raw_dir
 
 logger = logging.getLogger(__name__)
@@ -54,6 +55,19 @@ def _cmd_clean(kind: str) -> None:
 
 def _cmd_join() -> None:
     join_processed_files(processed_dir(), docs_dir())
+
+
+def _cmd_sql() -> None:
+    frames = run_queries(processed_dir())
+    for index, frame in enumerate(frames, start=1):
+        logger.info(
+            "Requête %s : %s lignes, colonnes %s",
+            index,
+            len(frame),
+            list(frame.columns),
+        )
+        print(frame.head(12).to_string(index=False))
+        print()
 
 
 def _cmd_eda() -> None:
@@ -101,7 +115,7 @@ def _cmd_dashboard() -> int:
 def build_parser() -> argparse.ArgumentParser:
     """Construit le parseur CLI."""
     parser = argparse.ArgumentParser(
-        description="Pipeline agriculture-climat Wallonie (download, clean, join, analyse, figures, map, ml, dashboard).",
+        description="Pipeline agriculture-climat Wallonie (DuckDB + analyse).",
     )
     sub = parser.add_subparsers(dest="command", required=True)
 
@@ -123,7 +137,11 @@ def build_parser() -> argparse.ArgumentParser:
 
     sub.add_parser(
         "join",
-        help="Joindre rendements et climat, écrire CSV/Parquet et docs/eda.md.",
+        help="Construire DuckDB (sql/schema.sql), exporter les vues, écrire docs/eda.md.",
+    )
+    sub.add_parser(
+        "sql",
+        help="Exécuter sql/queries.sql sur la base déjà construite.",
     )
     sub.add_parser(
         "eda",
@@ -155,7 +173,7 @@ def build_parser() -> argparse.ArgumentParser:
     )
     sub.add_parser(
         "run",
-        help="Télécharger, nettoyer, joindre, analyser, figures, carte, puis ML.",
+        help="Télécharger, nettoyer, construire DuckDB, analyser, figures, carte, ML.",
     )
     return parser
 
@@ -183,6 +201,8 @@ def main(argv: list[str] | None = None) -> int:
             _cmd_clean(args.kind)
         elif args.command == "join":
             _cmd_join()
+        elif args.command == "sql":
+            _cmd_sql()
         elif args.command == "eda":
             _cmd_eda()
         elif args.command == "analyse":
@@ -206,7 +226,7 @@ def main(argv: list[str] | None = None) -> int:
             _cmd_map()
             _cmd_ml()
     except FileNotFoundError as exc:
-        logger.error("%s — lancer d'abord : python -m agri_climat clean (ou run)", exc)
+        logger.error("%s — lancer d'abord : python -m agri_climat clean puis join (ou run)", exc)
         return 1
     except requests.RequestException as exc:
         logger.error("Échec du téléchargement : %s", exc)
