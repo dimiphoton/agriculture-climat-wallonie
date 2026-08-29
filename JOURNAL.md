@@ -1,5 +1,11 @@
 # Journal de développement
 
+## 2026-08-29 — Feature 8 : portfolio
+
+- Quatre decks Marp en état final (recruteur + technique, FR/EN) : visuel
+  de ranking côté non spécialiste ; méthode, stack, métriques et liens
+  `src/` côté technique.
+
 ## 2026-08-29 — Feature 7 : dashboard interactif
 
 - Streamlit + Plotly : filtres culture / période, séries, classement,

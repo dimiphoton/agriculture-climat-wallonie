@@ -11,8 +11,9 @@ paginate: true
 ![scipy](https://img.shields.io/badge/scipy-stats-8CAAE6?logo=scipy&logoColor=white)
 ![scikit-learn](https://img.shields.io/badge/scikit--learn-1.x-F7931E?logo=scikitlearn&logoColor=white)
 ![Streamlit](https://img.shields.io/badge/Streamlit-dashboard-FF4B4B?logo=streamlit&logoColor=white)
+![matplotlib](https://img.shields.io/badge/matplotlib-figures-11557c)
 
-*Which crops, which years — plus a dashboard to explore*
+*Which crops, which years — report plus dashboard*
 
 ---
 
@@ -33,30 +34,34 @@ temperature, rainfall and evapotranspiration (April–September).
 
 ## What we measure
 
-We first remove the long-term yield trend (agronomic progress), then check
-whether **residuals** move with an unusual season. That is **not** proof
-that climate caused the loss.
+We first remove long-term yield progress, then check whether **gaps** move
+with an unusual season. That is **not** proof that climate caused the loss.
 
 ---
 
-## First finding (Wallonia)
+## Finding (Wallonia)
 
-- **Wheat**: strongest link with seasonal rainfall. Wetter seasons tend
-  to sit below the yield trend — **2024** in particular.
-- **Potato**: link with seasonal heat.
+- **Wheat**: strongest link with **rainfall**. Very wet seasons tend to sit
+  below the trend — **2024** in particular.
+- **Potato**: link with seasonal **heat**.
 - **2018** (hot and dry): grain maize and potato below trend.
 
----
-
-## Explore
-
-A dashboard lets you pick a crop and period, then see the series, at-risk
-years and the provincial map. The sensitivity ranking stays the full-series
-result — sliding the years does not rewrite the league table.
+Watch wheat in very wet seasons; potato / grain maize in hot-dry summers.
 
 ---
 
-## Where we are
+## Visual takeaway
 
-Static report, map, linear check, and dashboard. Future climate scenarios
-stay out of scope.
+Bars show which crop tracks growing-season climate most closely. A star
+means the link is statistically readable — not a cause.
+
+![w:880](../../pictures/readme/crop-sensitivity-ranking.png)
+
+---
+
+## Deliverables
+
+A static report (README + maps), a simple check (“does climate help place
+the gap?”), and a **dashboard** to explore crop and period.
+
+This is not a forecast, and not a 2050 scenario.

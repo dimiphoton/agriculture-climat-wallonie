@@ -2,6 +2,13 @@
 
 ## [Non publié]
 
+### Feature 8 — Portfolio
+
+- Quatre decks Marp réécrits en état final (recruteur + technique, FR/EN) :
+  visuel de ranking côté non spécialiste, méthode / stack / métriques /
+  liens `src/` côté technique. HTML régénéré par GitHub Actions au merge
+  dans `main`.
+
 ### Feature 7 — Dashboard interactif
 
 - App Streamlit (`webapp/app.py`) : filtres culture / période, séries

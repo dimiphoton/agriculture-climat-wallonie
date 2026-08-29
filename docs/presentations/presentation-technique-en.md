@@ -12,46 +12,75 @@ paginate: true
 ![scikit-learn](https://img.shields.io/badge/scikit--learn-1.x-F7931E?logo=scikitlearn&logoColor=white)
 ![Streamlit](https://img.shields.io/badge/Streamlit-dashboard-FF4B4B?logo=streamlit&logoColor=white)
 ![Plotly](https://img.shields.io/badge/Plotly-interactive-3F4F75?logo=plotly&logoColor=white)
+![matplotlib](https://img.shields.io/badge/matplotlib-figures-11557c)
 
-*Feature 7: interactive dashboard*
+*Statistical analysis / BI, ML as a complement, dashboard*
 
 ---
 
 ## Framing
 
-Question: sensitivity of Walloon yields to **recent** climate variability.
-Primary approach: statistics / BI. ML is a simple baseline. The dashboard
-explores existing results; it is not a new analysis.
+Question: sensitivity of Walloon yields to **recent** climate variability
+(2000–2024). Primary approach: statistics / BI. NUTS 2 map and a linear
+baseline as complements. No CMIP6 in the observed table.
 
 ---
 
 ## Method
 
-1. Detrend, Spearman, atypical years, NUTS 2 map, LOO OLS (features 3–6).
-2. Dashboard: crop / period filters; Plotly series and map.
-3. Spearman ranking is **not** recomputed on the year slider (full series).
-4. Same GISCO GeoJSON as the static report.
+1. Join Eurostat `apro_cpshr` × ERA5 (Open-Meteo), territory × year.
+2. OLS **detrend** year → t/ha, per crop × territory.
+3. Spearman of the **residual** vs season z-scores (Pearson as a check).
+4. Atypical year: residual z ≤ −1 **and** climate |z| ≥ 1.
+5. OLS: residual ~ temp + rain + ET0; **leave-one-year-out** vs naive (0).
+6. Dashboard: filters; Spearman ranking is **not** recomputed on the slider.
 
 ---
 
-## Stack
+## Stack — why
 
-- **Streamlit**: `webapp/app.py` (UI); `src/agri_climat/dashboard.py` (logic).
-- **Plotly**: series and `go.Choropleth` (no Folium).
-- Reuses `analyse`, `map.load_nuts_geojson`, `evaluate_all_crops`.
-
-`python -m agri_climat dashboard` — **not** in `run`.
+- **pandas**: tables, join, Parquet export.
+- **scipy.stats**: `linregress`, `spearmanr` (robust to extremes, small n).
+- **scikit-learn**: `LinearRegression` — no forest (n = 14–25).
+- **matplotlib**: README figures and the static choropleth.
+- **Streamlit + Plotly**: exploration; same GISCO GeoJSON as the report.
 
 ---
 
-## Result (unchanged)
+## Metrics
 
-- Wheat: rainfall, ρ ≈ −0.68; LOO MAE 0.38 vs naive 0.51 t/ha.
-- Other crops: climate often does not beat “stay on trend”.
+- **Spearman**: main indicator (ranks). Read p < 0.05; no multiplicity
+  correction.
+- **Leave-one-year-out MAE** vs naive (predict 0), in t/ha. A negative
+  LOO R² is informative, not a scoring failure.
+- Provinces are a **sign** check only, never pooled.
+
+---
+
+## Results (Wallonia)
+
+- Wheat × seasonal rainfall: ρ ≈ **−0.68** (p < 0.05); same sign in all
+  five provinces. Naive MAE 0.51 → LOO **0.38** t/ha (R² ≈ 0.40).
+- Potato: heat, ρ ≈ −0.46; univariate temperature beats the 3-variable
+  model (ET0 collinearity).
+- 2024 (wet): six crops flagged. Other crops: climate often does not beat
+  “stay on trend”.
 
 ---
 
 ## Limits
 
-- Correlation ≠ causation; n = 14–25; provinces not pooled.
-- No cloud deploy; no CMIP6 / SSP (optional Feature 9).
+- Correlation ≠ causation; one ERA5 point per provincial centroid.
+- One April–September calendar; n = 14–25.
+- No cloud deploy; no CMIP6 / SSP scenario.
+
+---
+
+## Code
+
+- Analysis: `src/agri_climat/analyse.py` — `python -m agri_climat analyse`
+- ML: `src/agri_climat/ml.py` — `python -m agri_climat ml`
+- Map: `src/agri_climat/map.py` — `python -m agri_climat map`
+- App: `webapp/app.py` — `python -m agri_climat dashboard`
+
+Pipeline: `python -m agri_climat run` (does not start Streamlit).
