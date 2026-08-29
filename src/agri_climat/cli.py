@@ -1,4 +1,4 @@
-"""Point d'entrée en ligne de commande : pipeline jusqu'au ML basique."""
+"""Point d'entrée en ligne de commande : pipeline et dashboard Streamlit."""
 
 from __future__ import annotations
 
@@ -86,10 +86,16 @@ def _cmd_ml() -> None:
     run_ml()
 
 
+def _cmd_dashboard() -> int:
+    from agri_climat.dashboard import launch_dashboard
+
+    return launch_dashboard()
+
+
 def build_parser() -> argparse.ArgumentParser:
     """Construit le parseur CLI."""
     parser = argparse.ArgumentParser(
-        description="Pipeline agriculture-climat Wallonie (download, clean, join, analyse, figures, map, ml).",
+        description="Pipeline agriculture-climat Wallonie (download, clean, join, analyse, figures, map, ml, dashboard).",
     )
     sub = parser.add_subparsers(dest="command", required=True)
 
@@ -134,6 +140,10 @@ def build_parser() -> argparse.ArgumentParser:
         help="Baseline linéaire leave-one-year-out (rapport + PNG).",
     )
     sub.add_parser(
+        "dashboard",
+        help="Lancer le dashboard Streamlit (filtres culture / période).",
+    )
+    sub.add_parser(
         "run",
         help="Télécharger, nettoyer, joindre, analyser, figures, carte, puis ML.",
     )
@@ -173,6 +183,8 @@ def main(argv: list[str] | None = None) -> int:
             _cmd_map()
         elif args.command == "ml":
             _cmd_ml()
+        elif args.command == "dashboard":
+            return _cmd_dashboard()
         elif args.command == "run":
             _cmd_download("all")
             _cmd_clean("all")

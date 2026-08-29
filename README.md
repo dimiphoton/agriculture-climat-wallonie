@@ -2,7 +2,7 @@
 
 | | |
 |---|---|
-| **Stack** | ![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python&logoColor=white) ![pandas](https://img.shields.io/badge/pandas-2.x-150458?logo=pandas&logoColor=white) ![scipy](https://img.shields.io/badge/scipy-stats-8CAAE6?logo=scipy&logoColor=white) ![scikit-learn](https://img.shields.io/badge/scikit--learn-1.x-F7931E?logo=scikitlearn&logoColor=white) ![pyarrow](https://img.shields.io/badge/pyarrow-Parquet-34A001) ![matplotlib](https://img.shields.io/badge/matplotlib-EDA-11557c) ![requests](https://img.shields.io/badge/requests-HTTP-2b5b84) |
+| **Stack** | ![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python&logoColor=white) ![pandas](https://img.shields.io/badge/pandas-2.x-150458?logo=pandas&logoColor=white) ![scipy](https://img.shields.io/badge/scipy-stats-8CAAE6?logo=scipy&logoColor=white) ![scikit-learn](https://img.shields.io/badge/scikit--learn-1.x-F7931E?logo=scikitlearn&logoColor=white) ![Streamlit](https://img.shields.io/badge/Streamlit-dashboard-FF4B4B?logo=streamlit&logoColor=white) ![Plotly](https://img.shields.io/badge/Plotly-interactive-3F4F75?logo=plotly&logoColor=white) ![pyarrow](https://img.shields.io/badge/pyarrow-Parquet-34A001) ![matplotlib](https://img.shields.io/badge/matplotlib-EDA-11557c) ![requests](https://img.shields.io/badge/requests-HTTP-2b5b84) |
 | **Level** | Intermediate *(proposal — to confirm)* |
 | **Data specialty** | BI / statistical analysis |
 
@@ -11,8 +11,8 @@
 Which Walloon crops are most sensitive to recent climate variability, and
 which years were most at risk? This project joins official yields with ERA5
 climate, ranks crops by observed sensitivity, and presents the result as a
-static report (this README) plus, later, an interactive dashboard for
-cooperatives, crop insurers and public administration.
+static report (this README) plus an interactive dashboard for cooperatives,
+crop insurers and public administration.
 
 ## Data
 
@@ -91,6 +91,20 @@ Bars below 1 mean climate beats that naive guess.
 
 ![Climate vs naive MAE](pictures/readme/ml-mae-vs-naive.png)
 
+## Dashboard
+
+Explore crop and period in the browser (French UI, same numbers as this
+report). Filters do not recompute the sensitivity ranking — that table
+stays the full-series Wallonia result.
+
+```bash
+python -m agri_climat dashboard
+```
+
+Equivalent: `streamlit run webapp/app.py`. Needs `data/processed/` already
+built (`python -m agri_climat run` or at least `join` + `map` for the
+choropleth). This command is **not** part of `run` (it starts a server).
+
 ## Limits
 
 - Correlation is not causation. Prices, pests, irrigation and variety
@@ -131,6 +145,7 @@ python -m agri_climat analyse           # correlations, atypical years, wheat
 python -m agri_climat figures           # README PNGs in pictures/readme/
 python -m agri_climat map               # provincial choropleth (wheat)
 python -m agri_climat ml                # linear baseline, LOO vs naive
+python -m agri_climat dashboard        # Streamlit app (not part of run)
 python -m agri_climat download climat   # climate only
 python -m agri_climat download nuts     # GISCO NUTS 2 polygons
 ```
@@ -159,7 +174,8 @@ Optional notebooks (kernel = project `.venv`):
 brief/                 # original goal and portfolio brief
 data/raw/              # downloaded files (gitignored)
 data/processed/        # clean and joined tables (CSV / Parquet)
-src/agri_climat/       # download, clean, join, analyse, figures, map, ml, CLI
+src/agri_climat/       # download, clean, join, analyse, figures, map, ml, dashboard, CLI
+webapp/                # Streamlit app (calls src/, no duplicated logic)
 notebooks/             # notebooks (call src/, no duplicated logic)
 tests/                 # unit tests
 docs/                  # decisions, EDA, statistical note, Marp presentations

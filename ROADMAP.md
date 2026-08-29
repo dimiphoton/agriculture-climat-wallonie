@@ -54,9 +54,9 @@ Livrables : rapport statique (README, figures) + dashboard interactif.
 
 ## Feature 7 — Dashboard interactif
 
-- [ ] App Streamlit (ou équivalent validé) : filtres culture / période
-- [ ] Graphiques clés + lien vers carte si disponible
-- [ ] Instructions de lancement dans le README
+- [x] App Streamlit (ou équivalent validé) : filtres culture / période
+- [x] Graphiques clés + lien vers carte si disponible
+- [x] Instructions de lancement dans le README
 
 ## Feature 8 — Portfolio
 
