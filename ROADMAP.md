@@ -35,9 +35,9 @@ Livrables : rapport statique (README, figures) + dashboard interactif.
 
 ## Feature 4 — Visualisations statiques
 
-- [ ] Graphiques comparatifs rendements vs anomalies climatiques
-- [ ] Export des figures dans `figures/` (ou `pictures/readme/` pour le README)
-- [ ] Mise à jour du README (objectif, méthode, résultats, limites)
+- [x] Graphiques comparatifs rendements vs anomalies climatiques
+- [x] Export des figures dans `pictures/readme/` (libellés anglais)
+- [x] Mise à jour du README (objectif, méthode, résultats, limites)
 
 ## Feature 5 — Carte de synthèse
 

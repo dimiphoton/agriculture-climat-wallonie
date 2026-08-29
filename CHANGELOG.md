@@ -2,6 +2,15 @@
 
 ## [Non publié]
 
+### Feature 4 — Visualisations statiques
+
+- Trois PNG polies dans `pictures/readme/` (ranking de sensibilité, nuages
+  résidu × climat, années à risque) générées par
+  `python -m agri_climat figures` (inclus dans `run`).
+- README public : sections Method / Results / Limits, figures embarquées,
+  takeaway métier. Libellés anglais (le README l'est) ; les PNG
+  d'analyse restent en français dans `pictures/experiments/`.
+
 ### Feature 3 — Analyse statistique
 
 - Corrélations (Spearman + Pearson) entre **résidu** de rendement (tendance

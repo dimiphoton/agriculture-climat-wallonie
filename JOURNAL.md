@@ -1,5 +1,11 @@
 # Journal de développement
 
+## 2026-08-29 — Feature 4 : visualisations statiques
+
+- Trois PNG README (`pictures/readme/`) : ranking de sensibilité, nuages
+  résidu × climat, années à risque ; `python -m agri_climat figures`.
+- README public : Method / Results / Limits et takeaway métier.
+
 ## 2026-08-25 — Feature 3 : analyse statistique
 
 - Sensibilité par culture (Spearman sur résidu de rendement vs climat de
