@@ -4,10 +4,9 @@
 
 ### Feature 8 — Portfolio
 
-- Quatre decks Marp en fil de **questions** (recruteur / technique, FR/EN) ;
-  figures sobres `pictures/presentations/` via `python -m agri_climat slides`.
-  Pied de slide → `docs/explore-{fr,en}.html` (Plotly, même site GitHub Pages,
-  sans installer Python). Streamlit reste l'app locale complète.
+- Quatre decks Marp **thème `agri`** : couvertures photo, slides punch,
+  graphes sans titre matplotlib (le message est dans la typo). Pied de
+  slide → `docs/explore-{fr,en}.html`. `python -m agri_climat slides`.
 
 ### Feature 7 — Dashboard interactif
 

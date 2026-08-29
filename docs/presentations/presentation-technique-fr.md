@@ -1,70 +1,105 @@
 ---
 marp: true
-theme: default
+theme: agri
 paginate: true
-footer: '[Explorer les données](../explore-fr.html)'
+footer: '[Explorer →](../explore-fr.html)'
 ---
+
+<!-- _class: cover -->
+<!-- _paginate: false -->
+
+![bg brightness:0.42](../../pictures/presentations/photos/progress.png)
 
 # Le climat explique-t-il
 # les écarts de rendement ?
 
-Wallonie · 2000–2024 · statistique d’abord, ML ensuite
-
-![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python&logoColor=white)
-![scikit-learn](https://img.shields.io/badge/scikit--learn-1.x-F7931E?logo=scikitlearn&logoColor=white)
-![Streamlit](https://img.shields.io/badge/Streamlit-dashboard-FF4B4B?logo=streamlit&logoColor=white)
+Wallonie · 2000–2024
 
 ---
 
-## Le progrès agronomique n’explique-t-il pas tout ?
+<!-- _class: split -->
 
-On retire d’abord une tendance année → t/ha. Ce qu’on relie au climat,
-c’est **l’écart**.
+![bg left:46%](../../pictures/presentations/photos/progress.png)
 
-![w:880](../../pictures/presentations/detrend-fr.png)
+# Ce n'est pas
+# le progrès
+# génétique.
 
----
-
-## Quel signal tient vraiment ?
-
-Spearman sur le résidu (rangs, n petit). **Froment × pluie**, ρ ≈ −0,68.
-
-![w:900](../../pictures/presentations/ranking-fr.png)
+On retire la tendance. Le climat, c'est l'écart.
 
 ---
 
-## On a gonflé n avec les provinces ?
+<!-- _class: chart -->
 
-Non. Les provinces ne sont pas indépendantes. Contrôle : **même signe**
-partout, sans pooling.
+Froment wallon : observé vs tendance.
 
-![w:640](../../pictures/presentations/map-fr.png)
-
----
-
-## Pourquoi pas un XGBoost ?
-
-n = 14–25. Une droite + **leave-one-year-out**. Pour le froment, le climat
-bat « rester sur la tendance » (MAE 0,51 → 0,38 t/ha). Ailleurs, souvent non.
-
-![w:620](../../pictures/presentations/mae-fr.png)
+![w:920](../../pictures/presentations/detrend-fr.png)
 
 ---
 
-## Où ça casse ?
+<!-- _class: full -->
 
-Un point ERA5 par province. Calendrier unique avril–septembre.
-Corrélation ≠ cause. Pas de scénario CMIP6.
+![bg brightness:0.38](../../pictures/presentations/photos/rain.png)
+
+# Froment × pluie
+# ρ ≈ −0,68
+
+Spearman sur le résidu. n petit. Rangs.
 
 ---
 
-## Comment je reproduis ?
+<!-- _class: chart -->
 
-**[Explorer en ligne](../explore-fr.html)** (même lien en pied de slide).
+Les cinq signaux les plus nets.
 
-```
-python -m agri_climat run
-python -m agri_climat dashboard
-```
+![w:980](../../pictures/presentations/ranking-fr.png)
 
-`analyse.py` · `ml.py` · `map.py` · `webapp/app.py`
+---
+
+<!-- _class: split -->
+
+![bg left:40%](../../pictures/presentations/photos/hills.png)
+
+# Pas de pooling.
+
+Même signe partout. Les provinces ne sont pas indépendantes.
+
+![w:480](../../pictures/presentations/map-fr.png)
+
+---
+
+<!-- _class: chart -->
+
+Pourquoi pas un XGBoost ? n = 14–25. Une droite + leave-one-year-out.
+
+![w:640](../../pictures/presentations/mae-fr.png)
+
+---
+
+<!-- _class: dark -->
+
+# Où ça casse.
+
+Un point ERA5 par province.
+
+Un calendrier unique avril–septembre.
+
+Corrélation ≠ cause.
+
+Pas de scénario CMIP6.
+
+---
+
+<!-- _class: cta -->
+
+![bg brightness:0.30](../../pictures/presentations/photos/explore.png)
+
+# Reproduire.
+
+[Explorer en ligne](../explore-fr.html)
+
+`python -m agri_climat run`
+
+`python -m agri_climat dashboard`
+
+Python · scikit-learn · Streamlit

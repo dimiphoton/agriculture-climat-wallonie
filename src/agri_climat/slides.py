@@ -38,6 +38,7 @@ logger = logging.getLogger(__name__)
 
 _RAIN = "#4c72b0"
 _HEAT = "#c44e52"
+_CREAM = "#f3eee6"
 _SLIDE_RANKING_N = 5
 
 _FR_TO_CODE: dict[str, str] = {label: code for code, label in CROP_LABELS_FR.items()}
@@ -46,6 +47,12 @@ _FR_TO_CODE: dict[str, str] = {label: code for code, label in CROP_LABELS_FR.ite
 def _style(ax) -> None:
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
+
+
+def _cream(fig, ax) -> None:
+    """Fond crème : le graphe se fond dans le thème Marp."""
+    fig.patch.set_facecolor(_CREAM)
+    ax.set_facecolor(_CREAM)
 
 
 def _crop_name(fr_label: str, lang: str) -> str:
@@ -97,29 +104,19 @@ def plot_slide_ranking(ranking: pd.DataFrame, lang: str) -> Figure:
     hi = max(0.15, float(work["spearman_r"].max()) + 0.15)
     ax.set_xlim(lo, hi)
     ax.set_xlabel("Spearman ρ", fontsize=11)
-    # Le titre dit le signe (pluie trop forte), pas « va de pair ».
     if lang == "fr":
-        ax.set_title(
-            "Plus de pluie, moins de froment. Chaleur : pomme de terre.",
-            fontsize=13,
-            pad=10,
-        )
         legend = [
             Patch(facecolor=_RAIN, label="Pluie de saison"),
             Patch(facecolor=_HEAT, label="Chaleur de saison"),
         ]
     else:
-        ax.set_title(
-            "Wetter seasons, lower wheat. Heat: potato.",
-            fontsize=13,
-            pad=10,
-        )
         legend = [
             Patch(facecolor=_RAIN, label="Rain"),
             Patch(facecolor=_HEAT, label="Heat"),
         ]
     ax.legend(handles=legend, loc="lower left", frameon=False, fontsize=11)
     _style(ax)
+    _cream(fig, ax)
     fig.tight_layout()
     return fig
 
@@ -149,11 +146,6 @@ def plot_slide_map(geojson: dict, spearman: pd.DataFrame, lang: str) -> Figure:
         for row in spearman.itertuples(index=False)
         if not pd.isna(row.spearman_r)
     }
-    title = (
-        "Même lecture dans les cinq provinces"
-        if lang == "fr"
-        else "Same pattern in all five provinces"
-    )
     _draw_choropleth(
         ax,
         geojson.get("features", []),
@@ -161,11 +153,12 @@ def plot_slide_map(geojson: dict, spearman: pd.DataFrame, lang: str) -> Figure:
         cmap="RdBu_r",
         vmin=-1.0,
         vmax=1.0,
-        title=title,
+        title="",
         cbar_label="wheat × rain (ρ)" if lang == "en" else "froment × pluie (ρ)",
         labels=GEO_LABELS_FR if lang == "fr" else GEO_LABELS_EN,
     )
-    ax.set_title(title, fontsize=14)
+    ax.set_title("")
+    _cream(fig, ax)
     fig.tight_layout()
     return fig
 
@@ -183,7 +176,7 @@ def plot_slide_detrend(table: pd.DataFrame, lang: str) -> Figure:
     Returns
     -------
     matplotlib.figure.Figure
-        Deux courbes, un titre.
+        Deux courbes (le message est sur la slide).
     """
     import matplotlib.pyplot as plt
 
@@ -203,12 +196,9 @@ def plot_slide_detrend(table: pd.DataFrame, lang: str) -> Figure:
         label="Tendance (progrès, etc.)" if lang == "fr" else "Long-term trend",
     )
     ax.set_ylabel("t/ha", fontsize=12)
-    if lang == "fr":
-        ax.set_title("On retire d'abord la tendance. Le climat, c'est l'écart.", fontsize=14)
-    else:
-        ax.set_title("First we remove the trend. Climate is the gap.", fontsize=14)
     ax.legend(frameon=False, fontsize=11)
     _style(ax)
+    _cream(fig, ax)
     fig.tight_layout()
     return fig
 
@@ -249,12 +239,9 @@ def plot_slide_mae(mae_naive: float, mae_model: float, lang: str) -> Figure:
             va="bottom",
             fontsize=13,
         )
-    if lang == "fr":
-        ax.set_title("Froment : MAE naïve vs climat (leave-one-year-out)", fontsize=13)
-    else:
-        ax.set_title("Wheat: naive MAE vs climate (leave-one-year-out)", fontsize=13)
     ax.set_ylim(0, max(mae_naive, mae_model) * 1.25)
     _style(ax)
+    _cream(fig, ax)
     fig.tight_layout()
     return fig
 
@@ -326,7 +313,7 @@ def run_slide_figures(
     for name, builder in jobs:
         path = figures / name
         fig = builder()
-        fig.savefig(path, dpi=140, bbox_inches="tight")
+        fig.savefig(path, dpi=140, bbox_inches="tight", facecolor=fig.get_facecolor())
         plt.close(fig)
         logger.info("Écrit %s", path)
         written.append(path)

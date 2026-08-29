@@ -12,18 +12,18 @@ from tests.test_map import _fixture_geojson
 
 
 def test_ranking_cinq_barres_max() -> None:
-    """Au plus cinq cultures, titre en français."""
+    """Au plus cinq cultures, axe Spearman."""
     table = add_yield_residuals(_joined_fixture())
     ranking = sensitivity_ranking(correlations_by_crop(table))
     fig = plot_slide_ranking(ranking, "fr")
-    assert "froment" in (fig.axes[0].get_title() or "").lower()
+    assert "Spearman" in (fig.axes[0].get_xlabel() or "")
     assert len(fig.axes[0].patches) <= 7  # barres + éventuels extra
 
 
 def test_mae_deux_barres() -> None:
     """Exactement deux barres : naïve vs modèle."""
     fig = plot_slide_mae(0.51, 0.38, "en")
-    assert "Wheat" in (fig.axes[0].get_title() or "")
+    assert "MAE" in (fig.axes[0].get_ylabel() or "")
     assert len(fig.axes[0].patches) == 2
 
 

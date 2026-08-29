@@ -1,69 +1,104 @@
 ---
 marp: true
-theme: default
+theme: agri
 paginate: true
-footer: '[Explore the data](../explore-en.html)'
+footer: '[Explore →](../explore-en.html)'
 ---
+
+<!-- _class: cover -->
+<!-- _paginate: false -->
+
+![bg brightness:0.42](../../pictures/presentations/photos/progress.png)
 
 # Does climate explain
 # yield gaps?
 
-Wallonia · 2000–2024 · statistics first, then a linear check
-
-![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python&logoColor=white)
-![scikit-learn](https://img.shields.io/badge/scikit--learn-1.x-F7931E?logo=scikitlearn&logoColor=white)
-![Streamlit](https://img.shields.io/badge/Streamlit-dashboard-FF4B4B?logo=streamlit&logoColor=white)
+Wallonia · 2000–2024
 
 ---
 
-## Isn’t this just genetic progress?
+<!-- _class: split -->
 
-We first remove a year → t/ha trend. What we link to climate is the **gap**.
+![bg left:46%](../../pictures/presentations/photos/progress.png)
 
-![w:880](../../pictures/presentations/detrend-en.png)
+# This is not
+# genetic progress.
 
----
-
-## Which signal actually holds?
-
-Spearman on the residual (ranks, small n). **Wheat × rain**, ρ ≈ −0.68.
-
-![w:900](../../pictures/presentations/ranking-en.png)
+We remove the trend. Climate is the gap.
 
 ---
 
-## Did you pool provinces to inflate n?
+<!-- _class: chart -->
 
-No. Provinces are not independent draws. Check: **same sign**
-everywhere, no pooling.
+Walloon wheat: observed vs trend.
 
-![w:640](../../pictures/presentations/map-en.png)
-
----
-
-## Why not XGBoost?
-
-n = 14–25. A line + **leave-one-year-out**. For wheat, climate beats
-“stay on trend” (MAE 0.51 → 0.38 t/ha). For most other crops, it does not.
-
-![w:620](../../pictures/presentations/mae-en.png)
+![w:920](../../pictures/presentations/detrend-en.png)
 
 ---
 
-## Where does it break?
+<!-- _class: full -->
 
-One ERA5 point per province. One April–September calendar.
-Correlation ≠ cause. No CMIP6 scenario.
+![bg brightness:0.38](../../pictures/presentations/photos/rain.png)
+
+# Wheat × rain
+# ρ ≈ −0.68
+
+Spearman on the residual. Small n. Ranks.
 
 ---
 
-## How do I reproduce?
+<!-- _class: chart -->
 
-**[Explore online](../explore-en.html)** (same link in the slide footer).
+The five clearest signals.
 
-```
-python -m agri_climat run
-python -m agri_climat dashboard
-```
+![w:980](../../pictures/presentations/ranking-en.png)
 
-`analyse.py` · `ml.py` · `map.py` · `webapp/app.py`
+---
+
+<!-- _class: split -->
+
+![bg left:40%](../../pictures/presentations/photos/hills.png)
+
+# No pooling.
+
+Same sign everywhere. Provinces are not independent draws.
+
+![w:480](../../pictures/presentations/map-en.png)
+
+---
+
+<!-- _class: chart -->
+
+Why not XGBoost? n = 14–25. A line + leave-one-year-out.
+
+![w:640](../../pictures/presentations/mae-en.png)
+
+---
+
+<!-- _class: dark -->
+
+# Where it breaks.
+
+One ERA5 point per province.
+
+One April–September calendar.
+
+Correlation ≠ cause.
+
+No CMIP6 scenario.
+
+---
+
+<!-- _class: cta -->
+
+![bg brightness:0.30](../../pictures/presentations/photos/explore.png)
+
+# Reproduce.
+
+[Explore online](../explore-en.html)
+
+`python -m agri_climat run`
+
+`python -m agri_climat dashboard`
+
+Python · scikit-learn · Streamlit

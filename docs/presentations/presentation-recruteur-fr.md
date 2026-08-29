@@ -1,57 +1,97 @@
 ---
 marp: true
-theme: default
+theme: agri
 paginate: true
-footer: '[Tableau de bord](../explore-fr.html)'
+footer: '[Tableau de bord →](../explore-fr.html)'
 ---
 
-# Quelles cultures wallonnes
-# souffrent du climat récent ?
+<!-- _class: cover -->
+<!-- _paginate: false -->
 
-Wallonie · 2000–2024 · rapport + tableau de bord
+![bg brightness:0.40](../../pictures/presentations/photos/hero.png)
 
-![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python&logoColor=white)
-![Streamlit](https://img.shields.io/badge/Streamlit-dashboard-FF4B4B?logo=streamlit&logoColor=white)
+# Quelles cultures
+# souffrent vraiment
+# du climat récent ?
 
----
-
-## À qui ça sert ?
-
-Coopératives, assureurs récolte, administration : **quelles cultures**,
-**quelles années** — pas une prévision 2050.
+Wallonie · 2000–2024
 
 ---
 
-## Qu’est-ce qu’on a trouvé ?
+<!-- _class: split -->
 
-Les années **très pluvieuses**, le **froment** est plus bas (surtout 2024).
-Les étés **chauds**, la **pomme de terre** aussi.
+![bg left:46%](../../pictures/presentations/photos/hills.png)
 
-![w:900](../../pictures/presentations/ranking-fr.png)
+# Pas 2050.
 
----
+Coopératives. Assureurs. Administration.
 
-## C’est vrai partout en Wallonie ?
-
-Oui : le lien froment–pluie a le **même sens** dans les cinq provinces.
-
-![w:640](../../pictures/presentations/map-fr.png)
+**Quelles cultures. Quelles années.**
 
 ---
 
-## Qu’est-ce qu’on en fait lundi ?
+<!-- _class: full -->
 
-- Surveiller le **froment** les années **très humides**.
-- Surveiller la **pomme de terre** les étés **chauds**.
-- Surveiller le **maïs grain** les saisons **sèches**.
+![bg brightness:0.38](../../pictures/presentations/photos/rain.png)
 
-Ce n’est pas une cause prouvée — un faisceau d’indices.
+# Trop d'eau.
+# Moins de froment.
+
+Surtout 2024.
 
 ---
 
-## On peut explorer soi-même ?
+<!-- _class: full -->
 
-**[Ouvrir le tableau de bord](../explore-fr.html)** — culture, période,
-dans le navigateur (le lien est aussi en bas de chaque slide).
+![bg brightness:0.42](../../pictures/presentations/photos/potato.png)
 
-Code : [GitHub](https://github.com/dimiphoton/agriculture-climat-wallonie)
+# Trop de chaleur.
+# Moins de pommes de terre.
+
+---
+
+<!-- _class: chart -->
+
+Le classement — ce qui tient.
+
+![w:980](../../pictures/presentations/ranking-fr.png)
+
+---
+
+<!-- _class: split -->
+
+![bg left:40%](../../pictures/presentations/photos/hills.png)
+
+# Vrai dans
+# les cinq
+# provinces.
+
+![w:480](../../pictures/presentations/map-fr.png)
+
+---
+
+<!-- _class: actions -->
+
+![bg right:38%](../../pictures/presentations/photos/maize.png)
+
+# Lundi.
+
+**Froment** — années saturées d'eau.
+
+**Pomme de terre** — étés qui brûlent.
+
+**Maïs grain** — saisons trop sèches.
+
+Pas une cause. Un faisceau d'indices.
+
+---
+
+<!-- _class: cta -->
+
+![bg brightness:0.30](../../pictures/presentations/photos/explore.png)
+
+# À vous.
+
+[Ouvrir le tableau de bord](../explore-fr.html)
+
+[Code source](https://github.com/dimiphoton/agriculture-climat-wallonie)

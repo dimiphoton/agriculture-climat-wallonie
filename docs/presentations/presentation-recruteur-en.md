@@ -1,57 +1,96 @@
 ---
 marp: true
-theme: default
+theme: agri
 paginate: true
-footer: '[Dashboard](../explore-en.html)'
+footer: '[Dashboard →](../explore-en.html)'
 ---
 
-# Which Walloon crops
-# are hit by recent climate?
+<!-- _class: cover -->
+<!-- _paginate: false -->
 
-Wallonia · 2000–2024 · report + dashboard
+![bg brightness:0.40](../../pictures/presentations/photos/hero.png)
 
-![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python&logoColor=white)
-![Streamlit](https://img.shields.io/badge/Streamlit-dashboard-FF4B4B?logo=streamlit&logoColor=white)
+# Which crops
+# are really hit
+# by recent climate?
 
----
-
-## Who is this for?
-
-Cooperatives, crop insurers, public bodies: **which crops**,
-**which years** — not a 2050 forecast.
+Wallonia · 2000–2024
 
 ---
 
-## What did we find?
+<!-- _class: split -->
 
-In **very wet** years, **wheat** yields sit lower (especially 2024).
-In **hot** summers, so does **potato**.
+![bg left:46%](../../pictures/presentations/photos/hills.png)
 
-![w:900](../../pictures/presentations/ranking-en.png)
+# Not 2050.
 
----
+Cooperatives. Insurers. Public bodies.
 
-## Is this true everywhere in Wallonia?
-
-Yes: the wheat–rain link has the **same sign** in all five provinces.
-
-![w:640](../../pictures/presentations/map-en.png)
+**Which crops. Which years.**
 
 ---
 
-## What do we do on Monday?
+<!-- _class: full -->
 
-- Watch **wheat** in **very wet** seasons.
-- Watch **potato** in **hot** summers.
-- Watch **grain maize** in **dry** seasons.
+![bg brightness:0.38](../../pictures/presentations/photos/rain.png)
 
-Not proven causation — a bundle of clues.
+# Too much rain.
+# Less wheat.
+
+Especially 2024.
 
 ---
 
-## Can we explore it?
+<!-- _class: full -->
 
-**[Open the dashboard](../explore-en.html)** — crop and period, in the
-browser (same link in the footer of every slide).
+![bg brightness:0.42](../../pictures/presentations/photos/potato.png)
 
-Code: [GitHub](https://github.com/dimiphoton/agriculture-climat-wallonie)
+# Too much heat.
+# Less potato.
+
+---
+
+<!-- _class: chart -->
+
+The ranking — what actually holds.
+
+![w:980](../../pictures/presentations/ranking-en.png)
+
+---
+
+<!-- _class: split -->
+
+![bg left:40%](../../pictures/presentations/photos/hills.png)
+
+# True in all
+# five provinces.
+
+![w:480](../../pictures/presentations/map-en.png)
+
+---
+
+<!-- _class: actions -->
+
+![bg right:38%](../../pictures/presentations/photos/maize.png)
+
+# Monday.
+
+**Wheat** — very wet seasons.
+
+**Potato** — summers that scorch.
+
+**Grain maize** — dry seasons.
+
+Not causation. A bundle of clues.
+
+---
+
+<!-- _class: cta -->
+
+![bg brightness:0.30](../../pictures/presentations/photos/explore.png)
+
+# Your turn.
+
+[Open the dashboard](../explore-en.html)
+
+[Source code](https://github.com/dimiphoton/agriculture-climat-wallonie)
