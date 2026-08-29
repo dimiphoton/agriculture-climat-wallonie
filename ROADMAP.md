@@ -60,8 +60,8 @@ Livrables : rapport statique (README, figures) + dashboard interactif.
 
 ## Feature 8 — Portfolio
 
-- [ ] Présentations Marp (4 fichiers FR/EN)
-- [ ] CHANGELOG et entrée JOURNAL après merge des features majeures
+- [x] Présentations Marp (4 fichiers FR/EN)
+- [x] CHANGELOG et entrée JOURNAL après merge des features majeures
 
 ## Feature 9 — Scénarios climatiques (optionnel, après le ML)
 
