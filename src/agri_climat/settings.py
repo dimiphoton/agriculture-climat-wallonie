@@ -25,6 +25,24 @@ CROP_LABELS_FR: dict[str, str] = {
     "I1110": "Colza",
 }
 
+# Libellés anglais : figures du README (le README public est en anglais).
+CROP_LABELS_EN: dict[str, str] = {
+    "C1110": "Wheat and spelt",
+    "C1300": "Barley",
+    "C1310": "Winter barley",
+    "C1500": "Grain maize",
+    "G3000": "Fodder maize",
+    "R1000": "Potato",
+    "R2000": "Sugar beet",
+    "I1110": "Rapeseed",
+}
+
+CLIMATE_LABELS_EN: dict[str, str] = {
+    "température saison": "seasonal temperature",
+    "précipitations saison": "seasonal rainfall",
+    "ET0 saison": "seasonal ET0",
+}
+
 GEO_LABELS_FR: dict[str, str] = {
     "BE3": "Wallonie",
     "BE31": "Brabant wallon",

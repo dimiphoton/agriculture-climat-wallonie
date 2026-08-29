@@ -26,3 +26,8 @@ def docs_dir() -> Path:
 def pictures_experiments_dir() -> Path:
     """Graphiques d'analyse (pas les figures polies du README)."""
     return repo_root() / "pictures" / "experiments"
+
+
+def pictures_readme_dir() -> Path:
+    """Figures polies destinées au README (libellés anglais)."""
+    return repo_root() / "pictures" / "readme"

@@ -1,4 +1,4 @@
-"""Point d'entrée en ligne de commande : pipeline jusqu'à l'analyse statistique."""
+"""Point d'entrée en ligne de commande : pipeline jusqu'aux figures README."""
 
 from __future__ import annotations
 
@@ -65,10 +65,16 @@ def _cmd_analyse() -> None:
     run_analyse()
 
 
+def _cmd_figures() -> None:
+    from agri_climat.figures import run_figures
+
+    run_figures()
+
+
 def build_parser() -> argparse.ArgumentParser:
     """Construit le parseur CLI."""
     parser = argparse.ArgumentParser(
-        description="Pipeline agriculture-climat Wallonie (download, clean, join, analyse).",
+        description="Pipeline agriculture-climat Wallonie (download, clean, join, analyse, figures).",
     )
     sub = parser.add_subparsers(dest="command", required=True)
 
@@ -101,8 +107,12 @@ def build_parser() -> argparse.ArgumentParser:
         help="Corrélations, années atypiques, zoom froment (rapport + PNG).",
     )
     sub.add_parser(
+        "figures",
+        help="PNG polies pour le README (ranking, nuages, années à risque).",
+    )
+    sub.add_parser(
         "run",
-        help="Télécharger, nettoyer, joindre, puis analyser.",
+        help="Télécharger, nettoyer, joindre, analyser, puis figures README.",
     )
     return parser
 
@@ -134,11 +144,14 @@ def main(argv: list[str] | None = None) -> int:
             _cmd_eda()
         elif args.command == "analyse":
             _cmd_analyse()
+        elif args.command == "figures":
+            _cmd_figures()
         elif args.command == "run":
             _cmd_download("all")
             _cmd_clean("all")
             _cmd_join()
             _cmd_analyse()
+            _cmd_figures()
     except FileNotFoundError as exc:
         logger.error("%s — lancer d'abord : python -m agri_climat clean (ou run)", exc)
         return 1
