@@ -10,7 +10,7 @@
 # requise).
 set -e
 
-npx --yes @marp-team/marp-cli -I docs/presentations/ -o docs/slides/ --allow-local-files
+npx --yes @marp-team/marp-cli -I docs/presentations/ -o docs/slides/ --allow-local-files --theme-set docs/presentations/agri.css
 
 echo ""
 echo "Aperçu généré dans docs/slides/ (sera régénéré par CI au push sur main) :"

@@ -171,11 +171,13 @@ def _draw_choropleth(
     vmax: float,
     title: str,
     cbar_label: str,
+    labels: dict[str, str] | None = None,
 ) -> None:
     """Remplit les provinces selon ``value_by_geo`` ; gris si valeur manquante."""
     import matplotlib.cm as cm
     import matplotlib.colors as mcolors
 
+    geo_labels = labels if labels is not None else GEO_LABELS_EN
     norm = mcolors.Normalize(vmin=vmin, vmax=vmax)
     scaler = cm.ScalarMappable(norm=norm, cmap=cmap)
     scaler.set_array([])
@@ -192,7 +194,7 @@ def _draw_choropleth(
         ax.text(
             cx,
             cy,
-            GEO_LABELS_EN.get(nuts_id, nuts_id),
+            geo_labels.get(nuts_id, nuts_id),
             ha="center",
             va="center",
             fontsize=8,

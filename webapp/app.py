@@ -17,7 +17,7 @@ from agri_climat.dashboard import (
     spearman_by_province,
     year_bounds,
 )
-from agri_climat.settings import FOCUS_CROP_CODE, GROWING_SEASON_Z_COLS
+from agri_climat.settings import FOCUS_CROP_CODE, GROWING_SEASON_Z_COLS, PAGES_BASE_URL
 
 st.set_page_config(
     page_title="Rendements wallons × climat",
@@ -93,6 +93,11 @@ def main() -> None:
         "Année (résidu)",
         list(range(year_range[0], year_range[1] + 1)),
         index=year_range[1] - year_range[0],
+    )
+    st.sidebar.markdown("---")
+    st.sidebar.markdown(
+        f"[Présentations]({PAGES_BASE_URL}/) · "
+        f"[Explorer (web)]({PAGES_BASE_URL}/explore-fr.html)"
     )
 
     panel = filter_wallonia_crop(table, crop_code, year_range[0], year_range[1])

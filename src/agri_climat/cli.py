@@ -86,6 +86,12 @@ def _cmd_ml() -> None:
     run_ml()
 
 
+def _cmd_slides() -> None:
+    from agri_climat.slides import run_slide_figures
+
+    run_slide_figures()
+
+
 def _cmd_dashboard() -> int:
     from agri_climat.dashboard import launch_dashboard
 
@@ -140,6 +146,10 @@ def build_parser() -> argparse.ArgumentParser:
         help="Baseline linéaire leave-one-year-out (rapport + PNG).",
     )
     sub.add_parser(
+        "slides",
+        help="PNG des slides Marp + pages d'exploration GitHub Pages.",
+    )
+    sub.add_parser(
         "dashboard",
         help="Lancer le dashboard Streamlit (filtres culture / période).",
     )
@@ -183,6 +193,8 @@ def main(argv: list[str] | None = None) -> int:
             _cmd_map()
         elif args.command == "ml":
             _cmd_ml()
+        elif args.command == "slides":
+            _cmd_slides()
         elif args.command == "dashboard":
             return _cmd_dashboard()
         elif args.command == "run":

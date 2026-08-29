@@ -1,0 +1,2 @@
+Illustrations générées pour les fonds de slides Marp (thème agri).
+Pas de texte dans l'image ; le message est dans la typo.

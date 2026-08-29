@@ -10,7 +10,8 @@ on:
   push:
     branches: [main]
     paths:
-      - 'docs/presentations/**/*.md'
+      - 'docs/presentations/**'
+      - 'pictures/presentations/**'
   workflow_dispatch:
 
 permissions:
@@ -29,7 +30,7 @@ jobs:
           node-version: '20'
 
       - name: Build slides with Marp
-        run: npx --yes @marp-team/marp-cli -I docs/presentations/ -o docs/slides/ --allow-local-files
+        run: npx --yes @marp-team/marp-cli -I docs/presentations/ -o docs/slides/ --allow-local-files --theme-set docs/presentations/agri.css
 
       - name: Commit generated slides
         run: |

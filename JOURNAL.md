@@ -1,5 +1,11 @@
 # Journal de développement
 
+## 2026-08-30 — Slides impact (thème agri)
+
+- Quatre decks réécrits en fil de questions : photos plein cadre, thème
+  `agri`, graphes sans titre matplotlib. Explorer Plotly sur GitHub Pages
+  (`docs/explore-{fr,en}.html`). `python -m agri_climat slides`.
+
 ## 2026-08-29 — Feature 8 : portfolio
 
 - Quatre decks Marp en état final (recruteur + technique, FR/EN) : visuel

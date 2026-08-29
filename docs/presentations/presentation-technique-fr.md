@@ -1,86 +1,105 @@
 ---
 marp: true
-theme: default
+theme: agri
 paginate: true
+footer: '[Explorer →](../explore-fr.html)'
 ---
 
-# Rendements wallons × climat — technique
+<!-- _class: cover -->
+<!-- _paginate: false -->
 
-![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python&logoColor=white)
-![pandas](https://img.shields.io/badge/pandas-2.x-150458?logo=pandas&logoColor=white)
-![scipy](https://img.shields.io/badge/scipy-stats-8CAAE6?logo=scipy&logoColor=white)
-![scikit-learn](https://img.shields.io/badge/scikit--learn-1.x-F7931E?logo=scikitlearn&logoColor=white)
-![Streamlit](https://img.shields.io/badge/Streamlit-dashboard-FF4B4B?logo=streamlit&logoColor=white)
-![Plotly](https://img.shields.io/badge/Plotly-interactive-3F4F75?logo=plotly&logoColor=white)
-![matplotlib](https://img.shields.io/badge/matplotlib-figures-11557c)
+![bg brightness:0.42](../../pictures/presentations/photos/progress.png)
 
-*Analyse statistique / BI, ML en complément, dashboard*
+# Le climat explique-t-il
+# les écarts de rendement ?
 
----
-
-## Cadrage
-
-Question : sensibilité des rendements wallons aux variations climatiques
-**récentes** (2000–2024). Dominant : statistique / BI. Carte NUTS 2 et
-régression linéaire en complément. Pas de CMIP6 dans le jeu observé.
+Wallonie · 2000–2024
 
 ---
 
-## Méthode
+<!-- _class: split -->
 
-1. Jointure Eurostat `apro_cpshr` × ERA5 (Open-Meteo), `geo` × année.
-2. **Détrend** OLS année → t/ha, par culture × territoire.
-3. Spearman du **résidu** vs z-scores de saison (Pearson en contrôle).
-4. Année atypique : résidu z ≤ −1 **et** |z| climatique ≥ 1.
-5. OLS : résidu ~ temp + pluie + ET0 ; **leave-one-year-out** vs naïve (0).
-6. Dashboard : filtres ; classement Spearman **non** recalculé au slider.
+![bg left:46%](../../pictures/presentations/photos/progress.png)
 
----
+# Ce n'est pas
+# le progrès
+# génétique.
 
-## Stack — pourquoi
-
-- **pandas** : tables, jointure, export Parquet.
-- **scipy.stats** : `linregress`, `spearmanr` (robuste aux extrêmes, n petit).
-- **scikit-learn** : `LinearRegression` — pas de forêt (n = 14–25).
-- **matplotlib** : figures README et choroplèthe statique.
-- **Streamlit + Plotly** : exploration ; même GeoJSON GISCO que le rapport.
+On retire la tendance. Le climat, c'est l'écart.
 
 ---
 
-## Métriques
+<!-- _class: chart -->
 
-- **Spearman** : indicateur principal (rangs). Seuil de lecture p < 0,05,
-  sans correction de multiplicité.
-- **MAE leave-one-year-out** vs naïve (prédire 0), en t/ha. Le R² LOO
-  peut être négatif : c’est informatif, pas un échec de « scoring ».
-- Provinces = contrôle de **signe**, jamais poolées.
+Froment wallon : observé vs tendance.
+
+![w:920](../../pictures/presentations/detrend-fr.png)
 
 ---
 
-## Résultats (Wallonie)
+<!-- _class: full -->
 
-- Froment × pluie de saison : ρ ≈ **−0,68** (p < 0,05) ; même signe dans
-  les cinq provinces. MAE naïve 0,51 → LOO **0,38** t/ha (R² ≈ 0,40).
-- Pomme de terre : chaleur, ρ ≈ −0,46 ; univariée température bat le
-  modèle à 3 variables (collinéarité ET0).
-- 2024 (humide) : six cultures flaggées. Autres cultures : le climat ne
-  bat souvent pas « rester sur la tendance ».
+![bg brightness:0.38](../../pictures/presentations/photos/rain.png)
 
----
+# Froment × pluie
+# ρ ≈ −0,68
 
-## Limites
-
-- Corrélation ≠ causalité ; un point ERA5 par centroïde provincial.
-- Calendrier unique avril–septembre ; n = 14–25.
-- Pas de déploiement cloud ; pas de scénario CMIP6 / SSP.
+Spearman sur le résidu. n petit. Rangs.
 
 ---
 
-## Code
+<!-- _class: chart -->
 
-- Analyse : `src/agri_climat/analyse.py` — `python -m agri_climat analyse`
-- ML : `src/agri_climat/ml.py` — `python -m agri_climat ml`
-- Carte : `src/agri_climat/map.py` — `python -m agri_climat map`
-- App : `webapp/app.py` — `python -m agri_climat dashboard`
+Les cinq signaux les plus nets.
 
-Pipeline : `python -m agri_climat run` (sans le serveur Streamlit).
+![w:980](../../pictures/presentations/ranking-fr.png)
+
+---
+
+<!-- _class: split -->
+
+![bg left:40%](../../pictures/presentations/photos/hills.png)
+
+# Pas de pooling.
+
+Même signe partout. Les provinces ne sont pas indépendantes.
+
+![w:480](../../pictures/presentations/map-fr.png)
+
+---
+
+<!-- _class: chart -->
+
+Pourquoi pas un XGBoost ? n = 14–25. Une droite + leave-one-year-out.
+
+![w:640](../../pictures/presentations/mae-fr.png)
+
+---
+
+<!-- _class: dark -->
+
+# Où ça casse.
+
+Un point ERA5 par province.
+
+Un calendrier unique avril–septembre.
+
+Corrélation ≠ cause.
+
+Pas de scénario CMIP6.
+
+---
+
+<!-- _class: cta -->
+
+![bg brightness:0.30](../../pictures/presentations/photos/explore.png)
+
+# Reproduire.
+
+[Explorer en ligne](../explore-fr.html)
+
+`python -m agri_climat run`
+
+`python -m agri_climat dashboard`
+
+Python · scikit-learn · Streamlit

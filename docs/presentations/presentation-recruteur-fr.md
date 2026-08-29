@@ -1,70 +1,97 @@
 ---
 marp: true
-theme: default
+theme: agri
 paginate: true
+footer: '[Tableau de bord →](../explore-fr.html)'
 ---
 
-# Rendements agricoles wallons et climat
+<!-- _class: cover -->
+<!-- _paginate: false -->
 
-![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python&logoColor=white)
-![pandas](https://img.shields.io/badge/pandas-2.x-150458?logo=pandas&logoColor=white)
-![scipy](https://img.shields.io/badge/scipy-stats-8CAAE6?logo=scipy&logoColor=white)
-![scikit-learn](https://img.shields.io/badge/scikit--learn-1.x-F7931E?logo=scikitlearn&logoColor=white)
-![Streamlit](https://img.shields.io/badge/Streamlit-dashboard-FF4B4B?logo=streamlit&logoColor=white)
-![matplotlib](https://img.shields.io/badge/matplotlib-figures-11557c)
+![bg brightness:0.40](../../pictures/presentations/photos/hero.png)
 
-*Quelles cultures, quelles années — rapport + tableau de bord*
+# Quelles cultures
+# souffrent vraiment
+# du climat récent ?
 
----
-
-## Le problème
-
-Sécheresses, excès de pluie et vagues de chaleur pèsent sur les récoltes
-wallonnes. Coopératives, assureurs et administration ont besoin d’une
-lecture claire : **quelles cultures, quelles années**.
+Wallonie · 2000–2024
 
 ---
 
-## Les données
+<!-- _class: split -->
 
-Rendements officiels par culture (Wallonie, 2000–2024) croisés avec
-température, pluie et évaporation de saison (avril–septembre).
+![bg left:46%](../../pictures/presentations/photos/hills.png)
 
----
+# Pas 2050.
 
-## Ce qu’on mesure
+Coopératives. Assureurs. Administration.
 
-On retire d’abord le progrès de long terme des rendements, puis on
-regarde si les **écarts** vont de pair avec un climat de saison inhabituel.
-Ce n’est **pas** une preuve que le climat a causé la perte.
+**Quelles cultures. Quelles années.**
 
 ---
 
-## Constat (Wallonie)
+<!-- _class: full -->
 
-- **Froment** : liaison la plus nette avec la **pluie**. Les saisons
-  très humides tendent à être sous la tendance — **2024** surtout.
-- **Pomme de terre** : liaison avec la **chaleur** de saison.
-- **2018** (chaud et sec) : maïs grain et pomme de terre sous la tendance.
+![bg brightness:0.38](../../pictures/presentations/photos/rain.png)
 
-À surveiller : froment les années très humides ; pomme de terre / maïs
-grain les étés chauds et secs.
+# Trop d'eau.
+# Moins de froment.
 
----
-
-## Lecture visuelle
-
-Les barres montrent quelle culture « suit » le plus le climat de saison.
-Une étoile : le lien est statistiquement lisible — pas une cause.
-
-![w:880](../../pictures/readme/crop-sensitivity-ranking.png)
+Surtout 2024.
 
 ---
 
-## Livrables
+<!-- _class: full -->
 
-Rapport statique (README + cartes), contrôle simple « le climat aide-t-il
-à situer l’écart ? », et **tableau de bord** pour explorer culture et
-période.
+![bg brightness:0.42](../../pictures/presentations/photos/potato.png)
 
-Ce n’est pas une prévision, ni un scénario 2050.
+# Trop de chaleur.
+# Moins de pommes de terre.
+
+---
+
+<!-- _class: chart -->
+
+Le classement — ce qui tient.
+
+![w:980](../../pictures/presentations/ranking-fr.png)
+
+---
+
+<!-- _class: split -->
+
+![bg left:40%](../../pictures/presentations/photos/hills.png)
+
+# Vrai dans
+# les cinq
+# provinces.
+
+![w:480](../../pictures/presentations/map-fr.png)
+
+---
+
+<!-- _class: actions -->
+
+![bg right:38%](../../pictures/presentations/photos/maize.png)
+
+# Lundi.
+
+**Froment** — années saturées d'eau.
+
+**Pomme de terre** — étés qui brûlent.
+
+**Maïs grain** — saisons trop sèches.
+
+Pas une cause. Un faisceau d'indices.
+
+---
+
+<!-- _class: cta -->
+
+![bg brightness:0.30](../../pictures/presentations/photos/explore.png)
+
+# À vous.
+
+[Ouvrir le tableau de bord](../explore-fr.html)
+
+[Code source](https://github.com/dimiphoton/agriculture-climat-wallonie)

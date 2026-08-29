@@ -1,67 +1,96 @@
 ---
 marp: true
-theme: default
+theme: agri
 paginate: true
+footer: '[Dashboard →](../explore-en.html)'
 ---
 
-# Walloon crop yields and climate
+<!-- _class: cover -->
+<!-- _paginate: false -->
 
-![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python&logoColor=white)
-![pandas](https://img.shields.io/badge/pandas-2.x-150458?logo=pandas&logoColor=white)
-![scipy](https://img.shields.io/badge/scipy-stats-8CAAE6?logo=scipy&logoColor=white)
-![scikit-learn](https://img.shields.io/badge/scikit--learn-1.x-F7931E?logo=scikitlearn&logoColor=white)
-![Streamlit](https://img.shields.io/badge/Streamlit-dashboard-FF4B4B?logo=streamlit&logoColor=white)
-![matplotlib](https://img.shields.io/badge/matplotlib-figures-11557c)
+![bg brightness:0.40](../../pictures/presentations/photos/hero.png)
 
-*Which crops, which years — report plus dashboard*
+# Which crops
+# are really hit
+# by recent climate?
 
----
-
-## The problem
-
-Droughts, excess rain and heat waves hit Walloon harvests. Cooperatives,
-insurers and public bodies need a clear picture: **which crops, which
-years**.
+Wallonia · 2000–2024
 
 ---
 
-## The data
+<!-- _class: split -->
 
-Official yields by crop (Wallonia, 2000–2024) combined with growing-season
-temperature, rainfall and evapotranspiration (April–September).
+![bg left:46%](../../pictures/presentations/photos/hills.png)
 
----
+# Not 2050.
 
-## What we measure
+Cooperatives. Insurers. Public bodies.
 
-We first remove long-term yield progress, then check whether **gaps** move
-with an unusual season. That is **not** proof that climate caused the loss.
+**Which crops. Which years.**
 
 ---
 
-## Finding (Wallonia)
+<!-- _class: full -->
 
-- **Wheat**: strongest link with **rainfall**. Very wet seasons tend to sit
-  below the trend — **2024** in particular.
-- **Potato**: link with seasonal **heat**.
-- **2018** (hot and dry): grain maize and potato below trend.
+![bg brightness:0.38](../../pictures/presentations/photos/rain.png)
 
-Watch wheat in very wet seasons; potato / grain maize in hot-dry summers.
+# Too much rain.
+# Less wheat.
 
----
-
-## Visual takeaway
-
-Bars show which crop tracks growing-season climate most closely. A star
-means the link is statistically readable — not a cause.
-
-![w:880](../../pictures/readme/crop-sensitivity-ranking.png)
+Especially 2024.
 
 ---
 
-## Deliverables
+<!-- _class: full -->
 
-A static report (README + maps), a simple check (“does climate help place
-the gap?”), and a **dashboard** to explore crop and period.
+![bg brightness:0.42](../../pictures/presentations/photos/potato.png)
 
-This is not a forecast, and not a 2050 scenario.
+# Too much heat.
+# Less potato.
+
+---
+
+<!-- _class: chart -->
+
+The ranking — what actually holds.
+
+![w:980](../../pictures/presentations/ranking-en.png)
+
+---
+
+<!-- _class: split -->
+
+![bg left:40%](../../pictures/presentations/photos/hills.png)
+
+# True in all
+# five provinces.
+
+![w:480](../../pictures/presentations/map-en.png)
+
+---
+
+<!-- _class: actions -->
+
+![bg right:38%](../../pictures/presentations/photos/maize.png)
+
+# Monday.
+
+**Wheat** — very wet seasons.
+
+**Potato** — summers that scorch.
+
+**Grain maize** — dry seasons.
+
+Not causation. A bundle of clues.
+
+---
+
+<!-- _class: cta -->
+
+![bg brightness:0.30](../../pictures/presentations/photos/explore.png)
+
+# Your turn.
+
+[Open the dashboard](../explore-en.html)
+
+[Source code](https://github.com/dimiphoton/agriculture-climat-wallonie)

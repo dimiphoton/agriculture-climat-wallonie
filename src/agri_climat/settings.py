@@ -25,7 +25,7 @@ CROP_LABELS_FR: dict[str, str] = {
     "I1110": "Colza",
 }
 
-# Libellés anglais : figures du README (le README public est en anglais).
+# Libellés anglais : figures du README et pages d'exploration.
 CROP_LABELS_EN: dict[str, str] = {
     "C1110": "Wheat and spelt",
     "C1300": "Barley",
@@ -36,6 +36,9 @@ CROP_LABELS_EN: dict[str, str] = {
     "R2000": "Sugar beet",
     "I1110": "Rapeseed",
 }
+
+# Site GitHub Pages (dossier ``docs/`` sur ``main``).
+PAGES_BASE_URL = "https://dimiphoton.github.io/agriculture-climat-wallonie"
 
 CLIMATE_LABELS_EN: dict[str, str] = {
     "température saison": "seasonal temperature",

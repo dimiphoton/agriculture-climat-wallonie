@@ -4,10 +4,9 @@
 
 ### Feature 8 — Portfolio
 
-- Quatre decks Marp réécrits en état final (recruteur + technique, FR/EN) :
-  visuel de ranking côté non spécialiste, méthode / stack / métriques /
-  liens `src/` côté technique. HTML régénéré par GitHub Actions au merge
-  dans `main`.
+- Quatre decks Marp **thème `agri`** : couvertures photo, slides punch,
+  graphes sans titre matplotlib (le message est dans la typo). Pied de
+  slide → `docs/explore-{fr,en}.html`. `python -m agri_climat slides`.
 
 ### Feature 7 — Dashboard interactif
 
