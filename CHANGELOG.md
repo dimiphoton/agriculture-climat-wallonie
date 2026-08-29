@@ -2,6 +2,14 @@
 
 ## [Non publié]
 
+### Feature 5 — Carte de synthèse
+
+- Choroplèthe provinciale (NUTS 2) : Spearman froment × pluie de saison, et
+  résidu de rendement 2024. PNG `pictures/readme/wheat-provinces-map.png`,
+  GeoJSON `data/processed/nuts2_wallonie.geojson` (source Eurostat GISCO).
+- `python -m agri_climat map` (inclus dans `run`). Pas de Folium / Plotly /
+  GeoPandas : matplotlib + GeoJSON, déjà dans la stack.
+
 ### Feature 4 — Visualisations statiques
 
 - Trois PNG polies dans `pictures/readme/` (ranking de sensibilité, nuages

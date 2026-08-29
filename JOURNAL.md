@@ -1,5 +1,12 @@
 # Journal de développement
 
+## 2026-08-29 — Feature 5 : carte de synthèse
+
+- Choroplèthe NUTS 2 (matplotlib + GeoJSON GISCO) : Spearman froment ×
+  pluie, et résidu 2024 ; `python -m agri_climat map`.
+- Folium / Plotly reportés au dashboard ; GeoJSON réutilisable dans
+  `data/processed/nuts2_wallonie.geojson`.
+
 ## 2026-08-29 — Feature 4 : visualisations statiques
 
 - Trois PNG README (`pictures/readme/`) : ranking de sensibilité, nuages
