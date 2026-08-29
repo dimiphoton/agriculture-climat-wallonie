@@ -4,10 +4,10 @@
 
 ### Feature 8 — Portfolio
 
-- Quatre decks Marp réécrits en état final (recruteur + technique, FR/EN) :
-  visuel de ranking côté non spécialiste, méthode / stack / métriques /
-  liens `src/` côté technique. HTML régénéré par GitHub Actions au merge
-  dans `main`.
+- Quatre decks Marp en fil de **questions** (recruteur / technique, FR/EN) ;
+  figures sobres `pictures/presentations/` via `python -m agri_climat slides`.
+  Pied de slide → `docs/explore-{fr,en}.html` (Plotly, même site GitHub Pages,
+  sans installer Python). Streamlit reste l'app locale complète.
 
 ### Feature 7 — Dashboard interactif
 

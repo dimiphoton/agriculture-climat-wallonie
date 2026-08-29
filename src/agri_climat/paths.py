@@ -31,3 +31,8 @@ def pictures_experiments_dir() -> Path:
 def pictures_readme_dir() -> Path:
     """Figures polies destinées au README (libellés anglais)."""
     return repo_root() / "pictures" / "readme"
+
+
+def pictures_presentations_dir() -> Path:
+    """Figures sobres pour les slides Marp (FR et EN)."""
+    return repo_root() / "pictures" / "presentations"
