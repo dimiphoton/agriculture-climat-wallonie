@@ -1,0 +1,9 @@
+crop_code,crop_label,n,mae_naive,mae_loo_multi,r2_loo_multi,mae_loo_best_univ,best_univ_label,mae_beats_naive,intercept,mae_loo_temp_mean_growing_c_z,coef_temp_mean_growing_c_z,vif_temp_mean_growing_c_z,mae_loo_precip_growing_mm_z,coef_precip_growing_mm_z,vif_precip_growing_mm_z,mae_loo_et0_growing_mm_z,coef_et0_growing_mm_z,vif_et0_growing_mm_z,mae_gain
+C1110,Froment et épeautre,24,0.511,0.38,0.4,0.418,précipitations saison,True,0.018,0.531,-0.456,2.97,0.418,-0.497,1.95,0.488,0.309,4.01,0.131
+R2000,Betterave sucrière,25,5.002,4.919,-0.049,4.858,précipitations saison,True,0.0,5.355,-1.821,2.83,4.858,-3.485,1.94,5.313,-0.529,3.91,0.083
+C1300,Orge,25,0.505,0.486,0.181,0.537,température saison,True,0.0,0.537,-0.47,2.83,0.555,-0.488,1.94,0.541,0.015,3.91,0.019
+I1110,Colza,25,0.31,0.314,0.053,0.3,précipitations saison,False,0.0,0.343,-0.038,2.83,0.3,-0.28,1.94,0.345,-0.092,3.91,-0.004
+C1310,Orge d'hiver,14,0.592,0.611,-0.018,0.616,température saison,False,-0.05,0.616,-0.773,2.83,0.701,-0.17,1.96,0.699,0.629,3.86,-0.019
+C1500,Maïs grain,14,0.651,0.807,-0.477,0.694,précipitations saison,False,0.033,0.7,-0.157,2.83,0.694,0.223,1.96,0.731,0.066,3.86,-0.156
+R1000,Pomme de terre,25,3.701,3.874,-0.042,3.579,température saison,False,0.0,3.579,-2.161,2.83,3.858,0.1,1.94,3.753,-0.118,3.91,-0.173
+G3000,Maïs fourrager,23,2.135,2.478,-0.418,2.236,précipitations saison,False,0.032,2.34,-0.085,2.88,2.236,-0.721,1.98,2.315,-0.231,4.11,-0.343

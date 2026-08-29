@@ -2,7 +2,7 @@
 
 | | |
 |---|---|
-| **Stack** | ![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python&logoColor=white) ![pandas](https://img.shields.io/badge/pandas-2.x-150458?logo=pandas&logoColor=white) ![scipy](https://img.shields.io/badge/scipy-stats-8CAAE6?logo=scipy&logoColor=white) ![pyarrow](https://img.shields.io/badge/pyarrow-Parquet-34A001) ![matplotlib](https://img.shields.io/badge/matplotlib-EDA-11557c) ![requests](https://img.shields.io/badge/requests-HTTP-2b5b84) |
+| **Stack** | ![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python&logoColor=white) ![pandas](https://img.shields.io/badge/pandas-2.x-150458?logo=pandas&logoColor=white) ![scipy](https://img.shields.io/badge/scipy-stats-8CAAE6?logo=scipy&logoColor=white) ![scikit-learn](https://img.shields.io/badge/scikit--learn-1.x-F7931E?logo=scikitlearn&logoColor=white) ![pyarrow](https://img.shields.io/badge/pyarrow-Parquet-34A001) ![matplotlib](https://img.shields.io/badge/matplotlib-EDA-11557c) ![requests](https://img.shields.io/badge/requests-HTTP-2b5b84) |
 | **Level** | Intermediate *(proposal — to confirm)* |
 | **Data specialty** | BI / statistical analysis |
 
@@ -43,8 +43,12 @@ in `data/processed/` (`rendements.csv`, `climat_*.csv`,
 4. Flag an **at-risk year** when the yield residual is ≤ −1 σ **and** at
    least one climate |z| is ≥ 1. That joint filter avoids labelling a
    technical dip or a wild climate year with no yield signal.
+5. Fit a **linear baseline** (residual ~ seasonal temperature, rainfall
+   and ET0 z-scores) and score it with leave-one-year-out MAE against a
+   naive guess of 0. Provinces are not pooled.
 
-Full numbers and caveats: `docs/analyse.md`.
+Full numbers and caveats: `docs/analyse.md` (statistics) and
+`docs/ml.md` (linear baseline).
 
 ## Results
 
@@ -79,6 +83,14 @@ watch **wheat in very wet growing seasons** and **potato / grain maize in
 hot-dry summers**. Treat this as an observed co-movement, not a forecast
 and not a proof that rainfall *caused* the 2024 wheat dip.
 
+A simple linear check (leave-one-year-out) agrees for **wheat**: climate
+cuts the typical residual error from 0.51 to 0.38 t/ha (R² ≈ 0.40),
+mainly via rainfall. For most other crops the three-variable model does
+**not** beat “stay on trend” — small samples and collinear heat / ET0.
+Bars below 1 mean climate beats that naive guess.
+
+![Climate vs naive MAE](pictures/readme/ml-mae-vs-naive.png)
+
 ## Limits
 
 - Correlation is not causation. Prices, pests, irrigation and variety
@@ -91,9 +103,12 @@ and not a proof that rainfall *caused* the 2024 wheat dip.
 - p-values are not corrected for testing several crops × three climate
   variables.
 - Observation 2000–2024 only. CMIP6 / SSP scenarios stay out of scope
-  until after a simple model (Feature 6 → optional Feature 9).
+  until after this baseline (optional Feature 9). The linear model is
+  not a forecast: 2016’s wheat dip is poorly captured out of sample.
 - The map is **five NUTS 2 provinces**, not municipalities or fields.
   GISCO 1:10 million outlines are schematic.
+- Leave-one-year-out on n ≈ 14–25 is noisy. MAE in t/ha is the headline
+  metric; a negative R² means the three climate z-scores add error.
 
 ## Reproduce
 
@@ -115,12 +130,13 @@ python -m agri_climat eda               # tables + PNG, no GUI
 python -m agri_climat analyse           # correlations, atypical years, wheat
 python -m agri_climat figures           # README PNGs in pictures/readme/
 python -m agri_climat map               # provincial choropleth (wheat)
+python -m agri_climat ml                # linear baseline, LOO vs naive
 python -m agri_climat download climat   # climate only
 python -m agri_climat download nuts     # GISCO NUTS 2 polygons
 ```
 
 Internet access is needed for the first download (Eurostat and Open-Meteo).
-Afterwards, `clean`, `join`, `analyse`, `figures` and `map` work offline from
+Afterwards, `clean`, `join`, `analyse`, `figures`, `map` and `ml` work offline from
 `data/raw/` (join needs the cleaned CSVs; `map` needs the processed NUTS
 GeoJSON). Fast preview (no Jupyter window):
 
@@ -128,12 +144,14 @@ GeoJSON). Fast preview (no Jupyter window):
 python -m agri_climat eda
 python -m agri_climat figures
 python -m agri_climat map
+python -m agri_climat ml
 ```
 
 Do not use `plt.show()` — on Windows the Tk window can hang for minutes.
 Optional notebooks (kernel = project `.venv`):
 `notebooks/02-eda-jointure.ipynb`, `notebooks/03-analyse.ipynb`,
-`notebooks/04-figures.ipynb`, `notebooks/05-carte.ipynb`.
+`notebooks/04-figures.ipynb`, `notebooks/05-carte.ipynb`,
+`notebooks/06-ml.ipynb`.
 
 ## Repo structure
 
@@ -141,7 +159,7 @@ Optional notebooks (kernel = project `.venv`):
 brief/                 # original goal and portfolio brief
 data/raw/              # downloaded files (gitignored)
 data/processed/        # clean and joined tables (CSV / Parquet)
-src/agri_climat/       # download, clean, join, analyse, figures, map, CLI
+src/agri_climat/       # download, clean, join, analyse, figures, map, ml, CLI
 notebooks/             # notebooks (call src/, no duplicated logic)
 tests/                 # unit tests
 docs/                  # decisions, EDA, statistical note, Marp presentations

@@ -9,8 +9,9 @@ paginate: true
 ![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python&logoColor=white)
 ![pandas](https://img.shields.io/badge/pandas-2.x-150458?logo=pandas&logoColor=white)
 ![scipy](https://img.shields.io/badge/scipy-stats-8CAAE6?logo=scipy&logoColor=white)
+![scikit-learn](https://img.shields.io/badge/scikit--learn-1.x-F7931E?logo=scikitlearn&logoColor=white)
 
-*Feature 3: which crops, which years*
+*Which crops, which years — plus a simple check*
 
 ---
 
@@ -39,18 +40,26 @@ that climate caused the loss.
 
 ## First finding (Wallonia)
 
-- **Wheat**: strongest link with seasonal rainfall (ρ ≈ −0.68). Wetter
-  seasons tend to sit below the yield trend — **2024** in particular.
-  All five provinces share the same sign.
-- **Potato**: link with seasonal heat (ρ ≈ −0.46).
+- **Wheat**: strongest link with seasonal rainfall. Wetter seasons tend
+  to sit below the yield trend — **2024** in particular. All five
+  provinces share the same sign.
+- **Potato**: link with seasonal heat.
 - **2018** (hot and dry): grain maize and potato below trend.
 
-These are **correlations**, not causes: one weather point per province,
-not the climate of the field.
+---
+
+## A simple check
+
+Year by year (without looking at that year itself), does the season help
+place the harvest gap? **For wheat, yes — mainly via rainfall.** For most
+other crops, adding heat and evapotranspiration does not really improve the
+diagnosis.
+
+This is not a forecast, and not a cause.
 
 ---
 
 ## Where we are
 
-A sensitivity ranking by crop, a list of atypical years, and a wheat
-deep-dive. Polished charts and the dashboard come next.
+A sensitivity ranking, at-risk years, a provincial map, and this linear
+check. The interactive dashboard comes next.

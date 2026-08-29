@@ -1,5 +1,12 @@
 # Journal de développement
 
+## 2026-08-29 — Feature 6 : ML basique
+
+- Régression linéaire leave-one-year-out (résidu ~ z-scores de saison)
+  vs naïve (prédire 0) ; `python -m agri_climat ml`.
+- Froment : MAE 0,51 → 0,38 t/ha ; les autres cultures ne battent en
+  général pas la naïve (n petit, collinéarité ET0 / température).
+
 ## 2026-08-29 — Feature 5 : carte de synthèse
 
 - Choroplèthe NUTS 2 (matplotlib + GeoJSON GISCO) : Spearman froment ×

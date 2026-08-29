@@ -48,9 +48,9 @@ Livrables : rapport statique (README, figures) + dashboard interactif.
 
 ## Feature 6 — ML basique (complément)
 
-- [ ] Baseline simple (ex. régression linéaire rendement ~ variables climat)
-- [ ] Métriques interprétables ; comparaison avec l'analyse statistique
-- [ ] Limites documentées dans `docs/decisions.md`
+- [x] Baseline simple (ex. régression linéaire rendement ~ variables climat)
+- [x] Métriques interprétables ; comparaison avec l'analyse statistique
+- [x] Limites documentées dans `docs/decisions.md`
 
 ## Feature 7 — Dashboard interactif
 
@@ -65,7 +65,7 @@ Livrables : rapport statique (README, figures) + dashboard interactif.
 
 ## Feature 9 — Scénarios climatiques (optionnel, après le ML)
 
-- [ ] Hors scope tant que la Feature 6 n'existe pas : pas de rendements futurs
+- [ ] Toujours optionnel : pas de rendements futurs dans le jeu observé
 - [ ] Si un jour : API Climate Open-Meteo (CMIP6 / SSP), overlay séparé,
       jamais mélangé aux années observées 2000–2024
 - [ ] Documenter l'incertitude modèle + downscaling (voir `docs/decisions.md`)
