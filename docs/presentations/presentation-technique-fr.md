@@ -13,7 +13,7 @@ footer: '[Explorer →](../explore-fr.html)'
 # Le climat explique-t-il
 # les écarts de rendement ?
 
-**Pipeline relationnel** · DuckDB · grains hétérogènes
+Rendements **annuels** × climat **journalier** — vues DuckDB.
 
 Géomatique NUTS 2 en contrôle de signe · Wallonie · 2000–2024
 
@@ -107,4 +107,20 @@ Les autres cultures ne battent en général pas la naïve (n petit, ET0 colliné
 [Explorer](../explore-fr.html)
 · `python -m agri_climat run` · `python -m agri_climat dashboard`
 
-Python · DuckDB (vues, fenêtres) · pandas (parse) · scipy · scikit-learn · Streamlit
+---
+
+<!-- _class: story -->
+
+## Stack
+
+Une commande : `python -m agri_climat run`
+
+- **Python 3.11** — pipeline et CLI
+- **DuckDB** — faits au grain natif, vues et fenêtres SQL
+- **pandas** — parse Eurostat (TSV) et ERA5 (JSON)
+- **scipy** — Spearman et p-values
+- **scikit-learn** — baseline linéaire leave-one-year-out
+- **Streamlit + Plotly** — dashboard
+- **matplotlib** — figures README et carte NUTS 2
+
+Pas de `pd.merge` amont : la réconciliation est dans `sql/schema.sql`.

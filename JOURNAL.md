@@ -1,5 +1,11 @@
 # Journal de développement
 
+## 2026-08-30 — Clôture v1.0
+
+- Périmètre 1–8 figé ; Feature 9 (CMIP6) hors v1, pas un oubli.
+- Vitrine : hub Pages (but + stack), README Intermediate, decks
+  techniques avec slide Stack. Version paquet `1.0.0`.
+
 ## 2026-08-30 — Photos 16:9 sous docs/pictures
 
 - Fonds Marp (froment, collines, pluie, maïs) servis par GitHub Pages.

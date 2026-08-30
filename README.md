@@ -2,18 +2,21 @@
 
 | | |
 |---|---|
-| **Stack** | ![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python&logoColor=white) ![DuckDB](https://img.shields.io/badge/DuckDB-SQL-FFF000?logo=duckdb&logoColor=black) ![pandas](https://img.shields.io/badge/pandas-2.x-150458?logo=pandas&logoColor=white) ![scipy](https://img.shields.io/badge/scipy-stats-8CAAE6?logo=scipy&logoColor=white) ![scikit-learn](https://img.shields.io/badge/scikit--learn-1.x-F7931E?logo=scikitlearn&logoColor=white) ![Streamlit](https://img.shields.io/badge/Streamlit-dashboard-FF4B4B?logo=streamlit&logoColor=white) ![Plotly](https://img.shields.io/badge/Plotly-interactive-3F4F75?logo=plotly&logoColor=white) ![pyarrow](https://img.shields.io/badge/pyarrow-Parquet-34A001) ![matplotlib](https://img.shields.io/badge/matplotlib-EDA-11557c) ![requests](https://img.shields.io/badge/requests-HTTP-2b5b84) |
-| **Level** | Intermediate *(proposal — to confirm)* |
+| **Stack** | ![Python](https://img.shields.io/badge/Python-3.11-3776AB?style=for-the-badge&logo=python&logoColor=white) ![DuckDB](https://img.shields.io/badge/DuckDB-SQL-FFF000?style=for-the-badge&logo=duckdb&logoColor=black) ![pandas](https://img.shields.io/badge/pandas-2.x-150458?style=for-the-badge&logo=pandas&logoColor=white) ![scipy](https://img.shields.io/badge/scipy-stats-8CAAE6?style=for-the-badge&logo=scipy&logoColor=white) ![scikit-learn](https://img.shields.io/badge/scikit--learn-1.x-F7931E?style=for-the-badge&logo=scikitlearn&logoColor=white) ![Streamlit](https://img.shields.io/badge/Streamlit-dashboard-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white) ![Plotly](https://img.shields.io/badge/Plotly-interactive-3F4F75?style=for-the-badge&logo=plotly&logoColor=white) ![matplotlib](https://img.shields.io/badge/matplotlib-figures-11557c?style=for-the-badge) ![pyarrow](https://img.shields.io/badge/pyarrow-Parquet-34A001?style=for-the-badge) |
+| **Level** | Intermediate |
 | **Data specialty** | SQL / heterogeneous-source integration |
+| **Status** | **v1.0** — complete (CMIP6 scenarios out of scope) |
 
 ## Objective
 
-Which Walloon crops are most sensitive to recent climate variability, and
-which years were most at risk? Yields are **annual**; climate is **daily**;
-the geographies do not line up either. This project’s core is a DuckDB
-schema that keeps both grains native and reconciles them in SQL views —
-then ranks crops by observed sensitivity for cooperatives, crop insurers
-and public administration.
+> Which Walloon crops are most sensitive to recent climate variability,
+> and which years were most at risk?
+
+Yields are **annual**; climate is **daily**; the geographies do not line
+up either. This project’s core is a **DuckDB** schema that keeps both
+grains native and reconciles them in SQL views — then ranks crops by
+observed sensitivity for cooperatives, crop insurers and public
+administration.
 
 ## Data
 
@@ -145,9 +148,10 @@ slider does not recompute it.
   remain in the residual.
 - p-values are not corrected for testing several crops × three climate
   variables.
-- Observation 2000–2024 only. CMIP6 / SSP scenarios stay out of scope
-  until after this baseline (optional Feature 9). The linear model is
-  not a forecast: 2016’s wheat dip is poorly captured out of sample.
+- Observation 2000–2024 only. CMIP6 / SSP scenarios are **out of v1.0**
+  (a different question: future impacts, not observed sensitivity).
+  The linear model is not a forecast: 2016’s wheat dip is poorly
+  captured out of sample.
 - The map is **five NUTS 2 provinces**, not municipalities or fields.
   GISCO 1:10 million outlines are schematic.
 - Leave-one-year-out on n ≈ 14–25 is noisy. MAE in t/ha is the headline
@@ -222,8 +226,9 @@ codebase comments).
 ## Presentations
 
 GitHub Pages (slideshow in the browser — not the HTML source on
-`github.com`). Footer on every slide opens the dashboard. Hub:
-[home](https://dimiphoton.github.io/agriculture-climat-wallonie/).
+`github.com`). The [hub](https://dimiphoton.github.io/agriculture-climat-wallonie/)
+states the question and the stack; the footer on every slide opens the
+dashboard.
 
 - [Recruiter overview (EN)](https://dimiphoton.github.io/agriculture-climat-wallonie/slides/presentation-recruteur-en.html)
 - [Technical deep dive (EN)](https://dimiphoton.github.io/agriculture-climat-wallonie/slides/presentation-technique-en.html)

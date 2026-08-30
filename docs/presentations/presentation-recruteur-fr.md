@@ -13,7 +13,7 @@ footer: '[Tableau de bord →](../explore-fr.html)'
 # Quelles cultures wallonnes
 # sont sensibles au climat ?
 
-**Intégration SQL × données agricoles**
+Rendements **annuels** × climat **journalier** — recalé en SQL.
 
 DuckDB · Wallonie · 2000–2024
 
