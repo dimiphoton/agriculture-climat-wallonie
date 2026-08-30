@@ -1,9 +1,10 @@
 # Roadmap
 
 Projet : rendements agricoles wallons × variabilité climatique.  
-Domaine : analyse statistique / BI, avec carte de synthèse et ML basique en
-complément.  
-Livrables : rapport statique (README, figures) + dashboard interactif.
+Domaine : intégration SQL de sources à grains hétérogènes (DuckDB),
+puis analyse statistique / BI, carte et ML basique en complément.  
+Livrables : schéma + `queries.sql`, rapport statique (README, figures),
+dashboard interactif.
 
 ---
 
@@ -12,17 +13,21 @@ Livrables : rapport statique (README, figures) + dashboard interactif.
 - [x] Téléchargement des rendements wallons via Eurostat `apro_cpshr`
       (Statbel → Eurostat ; Wallonie + provinces)
 - [x] Téléchargement des séries climatiques ERA5 via Open-Meteo
-      (5 points provinciaux, agrégat Wallonie)
+      (5 points provinciaux, grain **journalier** natif)
 - [x] Scripts `clean_rendements` et `clean_climat` dans `src/agri_climat/`
-- [x] Jeux intermédiaires dans `data/processed/` (`rendements.csv`,
-      `climat_mensuel.csv`, `climat_annuel.csv`)
+- [x] Jeux natifs dans `data/processed/` (`rendements.csv`,
+      `climat_quotidien.csv`)
 - [x] CLI `python -m agri_climat run` pour reproduire le pipeline
 
-## Feature 2 — Consolidation et exploration
+## Feature 2 — Entrepôt DuckDB et exploration
 
-- [x] Jointure temporelle rendements × climat (`geo` + `year`, inner)
-- [x] Table consolidée (`rendements_climat.csv` + `.parquet`) avec anomalies
-      et z-scores climatiques (référence 2000–2024 par territoire)
+- [x] Schéma relationnel (`sql/schema.sql`) : faits à grains différents,
+      vues d'agrégation (moyenne / cumul / jours au-dessus d'un seuil),
+      z-scores en fenêtre `PARTITION BY geo`, INNER JOIN `(geo, year)`
+- [x] `sql/queries.sql` : CTE, fenêtrage (tendance, rangs), Spearman SQL,
+      années atypiques, indice de risque
+- [x] Table consolidée exportée des vues (`rendements_climat.csv` +
+      `.parquet`) ; base `agri_climat.duckdb` régénérable
 - [x] EDA : `docs/eda.md` généré + notebook `notebooks/02-eda-jointure.ipynb`
 - [x] Note sur les limites de comparabilité (méthodologie, granularité, pas de CMIP6)
 

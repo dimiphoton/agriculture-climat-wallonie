@@ -90,6 +90,11 @@ OPEN_METEO_DAILY_VARS = (
 )
 GROWING_SEASON_MONTHS: tuple[int, ...] = (4, 5, 6, 7, 8, 9)
 
+# Seuils journaliers (doivent rester alignés avec sql/schema.sql).
+HOT_DAY_TMAX_C = 25.0
+WET_DAY_MM = 10.0
+DRY_DAY_MM = 1.0
+
 # Variables climatiques annuelles (hors identifiants) pour anomalies / z-scores.
 # Référence = moyenne 2000–2024 calculée séparément pour chaque ``geo``.
 CLIMATE_ANNUAL_VALUE_COLS: tuple[str, ...] = (
@@ -124,7 +129,7 @@ YIELD_RESID_Z_MAX = -1.0
 CLIMATE_EXTREME_ABS_Z = 1.0
 
 HTTP_TIMEOUT_S = 60
-HTTP_USER_AGENT = "agriculture-climat-wallonie/0.1 (portfolio; pandas pipeline)"
+HTTP_USER_AGENT = "agriculture-climat-wallonie/0.1 (portfolio; duckdb pipeline)"
 
 
 @dataclass(frozen=True)

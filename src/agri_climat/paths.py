@@ -33,6 +33,17 @@ def pictures_readme_dir() -> Path:
     return repo_root() / "pictures" / "readme"
 
 
+def sql_dir() -> Path:
+    """Scripts SQL versionnés (schéma DuckDB et requêtes de croisement)."""
+    return repo_root() / "sql"
+
+
 def pictures_presentations_dir() -> Path:
-    """Figures sobres pour les slides Marp (FR et EN)."""
-    return repo_root() / "pictures" / "presentations"
+    """Figures des slides, sous ``docs/`` pour que GitHub Pages les serve.
+
+    ``docs/presentations/`` et ``docs/slides/`` sont au même niveau : le
+    chemin Markdown ``../pictures/presentations/foo.png`` marche dans les
+    deux dossiers. Un ``../../pictures/`` à la racine du repo est invisible
+    sur Pages (seul ``/docs`` est publié).
+    """
+    return docs_dir() / "pictures" / "presentations"

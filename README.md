@@ -2,17 +2,18 @@
 
 | | |
 |---|---|
-| **Stack** | ![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python&logoColor=white) ![pandas](https://img.shields.io/badge/pandas-2.x-150458?logo=pandas&logoColor=white) ![scipy](https://img.shields.io/badge/scipy-stats-8CAAE6?logo=scipy&logoColor=white) ![scikit-learn](https://img.shields.io/badge/scikit--learn-1.x-F7931E?logo=scikitlearn&logoColor=white) ![Streamlit](https://img.shields.io/badge/Streamlit-dashboard-FF4B4B?logo=streamlit&logoColor=white) ![Plotly](https://img.shields.io/badge/Plotly-interactive-3F4F75?logo=plotly&logoColor=white) ![pyarrow](https://img.shields.io/badge/pyarrow-Parquet-34A001) ![matplotlib](https://img.shields.io/badge/matplotlib-EDA-11557c) ![requests](https://img.shields.io/badge/requests-HTTP-2b5b84) |
+| **Stack** | ![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python&logoColor=white) ![DuckDB](https://img.shields.io/badge/DuckDB-SQL-FFF000?logo=duckdb&logoColor=black) ![pandas](https://img.shields.io/badge/pandas-2.x-150458?logo=pandas&logoColor=white) ![scipy](https://img.shields.io/badge/scipy-stats-8CAAE6?logo=scipy&logoColor=white) ![scikit-learn](https://img.shields.io/badge/scikit--learn-1.x-F7931E?logo=scikitlearn&logoColor=white) ![Streamlit](https://img.shields.io/badge/Streamlit-dashboard-FF4B4B?logo=streamlit&logoColor=white) ![Plotly](https://img.shields.io/badge/Plotly-interactive-3F4F75?logo=plotly&logoColor=white) ![pyarrow](https://img.shields.io/badge/pyarrow-Parquet-34A001) ![matplotlib](https://img.shields.io/badge/matplotlib-EDA-11557c) ![requests](https://img.shields.io/badge/requests-HTTP-2b5b84) |
 | **Level** | Intermediate *(proposal — to confirm)* |
-| **Data specialty** | BI / statistical analysis |
+| **Data specialty** | SQL / heterogeneous-source integration |
 
 ## Objective
 
 Which Walloon crops are most sensitive to recent climate variability, and
-which years were most at risk? This project joins official yields with ERA5
-climate, ranks crops by observed sensitivity, and presents the result as a
-static report (this README) plus an interactive dashboard for cooperatives,
-crop insurers and public administration.
+which years were most at risk? Yields are **annual**; climate is **daily**;
+the geographies do not line up either. This project’s core is a DuckDB
+schema that keeps both grains native and reconciles them in SQL views —
+then ranks crops by observed sensitivity for cooperatives, crop insurers
+and public administration.
 
 ## Data
 
@@ -22,24 +23,40 @@ crop insurers and public administration.
   and spelt, barley, winter barley, grain maize, fodder maize, potatoes,
   sugar beet, rapeseed.
 - **Climate**: Open-Meteo Archive (ERA5 reanalysis) at five provincial
-  centroids — daily temperature, precipitation and FAO ET0, then aggregated
-  to monthly / annual / growing-season (April–September) series. Wallonia =
-  simple mean of the five points. Annual series include anomalies and
-  z-scores versus the 2000–2024 mean of each territory.
+  centroids — **daily** temperature, precipitation and FAO ET0, stored at
+  that native grain in DuckDB. SQL views aggregate to month / year /
+  growing-season (April–September): mean for temperature, sum for rainfall
+  and ET0, and counts of days above explicit thresholds (Tmax ≥ 25 °C,
+  rainfall ≥ 10 mm, dry day < 1 mm). Wallonia = unweighted mean of the
+  five points (a view, not a sixth station). Annual series include
+  anomalies and z-scores versus the 2000–2024 mean of each territory
+  (`AVG` / `STDDEV_SAMP` window functions, `PARTITION BY geo`).
 
-Raw files stay in `data/raw/` (not committed). Clean and joined tables are
-in `data/processed/` (`rendements.csv`, `climat_*.csv`,
-`rendements_climat.csv` / `.parquet`).
+Raw files stay in `data/raw/` (not committed). Native-grain tables
+(`rendements.csv`, `climat_quotidien.csv`) and SQL exports live in
+`data/processed/`. The warehouse file `agri_climat.duckdb` is regenerable
+(`python -m agri_climat join`) and not committed.
 
 ## Method
 
-1. Join yields and climate on territory × year (inner join, 2000–2024).
-2. **Detrend** each crop’s yield (linear year → t/ha) so genetic / technical
-   progress is not mistaken for a climate effect.
+**Why this schema.** Two fact tables at different grains, one shared year
+dimension: `fact_rendements` (year × crop × territory) and
+`fact_climat_quotidien` (day × province). Wallonia and the annual climate
+cube are **views**, not pre-merged pandas tables — the aggregate choices
+stay visible in `sql/schema.sql`. A view rather than a materialized table:
+~45 k daily rows recompute instantly, and changing a threshold (25 °C,
+April–September) does not require a hidden notebook step.
+
+1. Load native-grain CSVs into DuckDB; `INNER JOIN (geo, year)` in
+   `v_rendements_climat` (orphan years dropped).
+2. **Detrend** each crop’s yield (linear year → t/ha, also as
+   `regr_slope` / `regr_intercept` in `v_rendements_residus`) so genetic /
+   technical progress is not mistaken for a climate effect.
 3. Correlate the **residual** with growing-season z-scores (temperature,
    rainfall, ET0). Main indicator: **Spearman** (ranks, robust to extremes);
    Pearson as a check. Wallonia first; provinces only as a sign check
-   (not pooled — they are not independent draws).
+   (not pooled — they are not independent draws). SQL equivalent:
+   `corr(RANK(), RANK())` in `sql/queries.sql`; p-values come from scipy.
 4. Flag an **at-risk year** when the yield residual is ≤ −1 σ **and** at
    least one climate |z| is ≥ 1. That joint filter avoids labelling a
    technical dip or a wild climate year with no yield signal.
@@ -47,8 +64,12 @@ in `data/processed/` (`rendements.csv`, `climat_*.csv`,
    and ET0 z-scores) and score it with leave-one-year-out MAE against a
    naive guess of 0. Provinces are not pooled.
 
+A simple composite **climate-risk index** per crop (`v_indice_risque`)
+weights seasonal |z| only on years below the yield trend — a ranking, not
+an insurance probability.
+
 Full numbers and caveats: `docs/analyse.md` (statistics) and
-`docs/ml.md` (linear baseline).
+`docs/ml.md` (linear baseline). Schema comments: `sql/schema.sql`.
 
 ## Results
 
@@ -147,7 +168,8 @@ Useful commands:
 ```bash
 python -m agri_climat download          # raw files only
 python -m agri_climat clean             # rebuild processed climate/yield tables
-python -m agri_climat join              # join + anomalies + docs/eda.md
+python -m agri_climat join              # DuckDB + SQL views + docs/eda.md
+python -m agri_climat sql               # replay sql/queries.sql
 python -m agri_climat eda               # tables + PNG, no GUI
 python -m agri_climat analyse           # correlations, atypical years, wheat
 python -m agri_climat figures           # README PNGs in pictures/readme/
@@ -160,9 +182,10 @@ python -m agri_climat download nuts     # GISCO NUTS 2 polygons
 ```
 
 Internet access is needed for the first download (Eurostat and Open-Meteo).
-Afterwards, `clean`, `join`, `analyse`, `figures`, `map` and `ml` work offline from
-`data/raw/` (join needs the cleaned CSVs; `map` needs the processed NUTS
-GeoJSON). Fast preview (no Jupyter window):
+Afterwards, `clean`, `join`, `sql`, `analyse`, `figures`, `map` and `ml`
+work offline from `data/raw/` (`join` needs the native-grain CSVs;
+`sql` needs `agri_climat.duckdb`; `map` needs the processed NUTS GeoJSON).
+Fast preview (no Jupyter window):
 
 ```bash
 python -m agri_climat eda
@@ -181,16 +204,16 @@ Optional notebooks (kernel = project `.venv`):
 
 ```
 brief/                 # original goal and portfolio brief
+sql/                   # DuckDB schema + crossing queries (the integration layer)
 data/raw/              # downloaded files (gitignored)
-data/processed/        # clean and joined tables (CSV / Parquet)
-src/agri_climat/       # download, clean, join, analyse, figures, map, ml, dashboard, slides, CLI
+data/processed/        # native-grain CSVs + SQL view exports (CSV / Parquet)
+src/agri_climat/       # download, clean, warehouse, analyse, figures, map, ml, dashboard, slides, CLI
 webapp/                # Streamlit app (calls src/, no duplicated logic)
 notebooks/             # notebooks (call src/, no duplicated logic)
 tests/                 # unit tests
-docs/                  # decisions, EDA, Marp sources, GitHub Pages (slides + explore)
+docs/                  # decisions, EDA, Marp sources, GitHub Pages (slides + explore + slide PNG)
 pictures/experiments/  # analysis PNG (French labels)
 pictures/readme/       # polished README figures (English labels)
-pictures/presentations/  # slide figures (FR/EN)
 ```
 
 See also `ROADMAP.md` and `JOURNAL.md` (French, like the rest of the

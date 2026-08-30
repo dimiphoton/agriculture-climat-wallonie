@@ -48,7 +48,7 @@ def main() -> None:
     except FileNotFoundError:
         st.error(
             "Table consolidée introuvable. Lancer d'abord "
-            "`python -m agri_climat join` (ou `run`)."
+            "`python -m agri_climat join` (DuckDB + vues SQL, ou `run`)."
         )
         return
 

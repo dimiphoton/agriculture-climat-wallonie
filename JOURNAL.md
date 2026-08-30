@@ -1,5 +1,17 @@
 # Journal de développement
 
+## 2026-08-30 — Photos 16:9 sous docs/pictures
+
+- Fonds Marp (froment, collines, pluie, maïs) servis par GitHub Pages.
+- Graphes de slides copiés dans `docs/pictures/presentations/`.
+
+## 2026-08-30 — Brief SQL / DuckDB
+
+- Schéma à grains hétérogènes (`sql/schema.sql`) : climat quotidien en
+  fait, annuel en vue ; jointure et z-scores en SQL. `queries.sql` pour
+  les questions métier (CTE, fenêtres, Spearman via rangs, indice de
+  risque). `python -m agri_climat join` / `sql`.
+
 ## 2026-08-30 — Slides impact (thème agri)
 
 - Quatre decks réécrits en fil de questions : photos plein cadre, thème

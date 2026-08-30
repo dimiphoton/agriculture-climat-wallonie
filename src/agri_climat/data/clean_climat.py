@@ -1,4 +1,8 @@
-"""Agrégation des séries Open-Meteo quotidiennes en mensuel et annuel."""
+"""Import du climat Open-Meteo au grain natif journalier.
+
+Les agrégats mensuels / annuels et la moyenne wallonne vivent dans
+``sql/schema.sql`` (vues DuckDB), pas ici.
+"""
 
 from __future__ import annotations
 
@@ -149,8 +153,11 @@ def add_wallonia_mean(table: pd.DataFrame) -> pd.DataFrame:
     return combined.sort_values(sort_cols).reset_index(drop=True)
 
 
-def clean_climat_files(raw_root: Path, processed_root: Path) -> tuple[Path, Path]:
-    """Lit les JSON bruts et écrit les CSV mensuel et annuel.
+def clean_climat_files(raw_root: Path, processed_root: Path) -> Path:
+    """Lit les JSON bruts et écrit ``climat_quotidien.csv`` (5 provinces).
+
+    La Wallonie (moyenne des points) et les agrégats année / saison sont
+    des vues SQL, calculées ensuite par ``warehouse.build_warehouse``.
 
     Parameters
     ----------
@@ -161,8 +168,8 @@ def clean_climat_files(raw_root: Path, processed_root: Path) -> tuple[Path, Path
 
     Returns
     -------
-    tuple of Path
-        ``(climat_mensuel.csv, climat_annuel.csv)``.
+    Path
+        ``climat_quotidien.csv``.
     """
     processed_root.mkdir(parents=True, exist_ok=True)
     dailies: list[pd.DataFrame] = []
@@ -171,12 +178,17 @@ def clean_climat_files(raw_root: Path, processed_root: Path) -> tuple[Path, Path
         payload = json.loads(path.read_text(encoding="utf-8"))
         dailies.append(daily_from_openmeteo_json(payload))
     daily = pd.concat(dailies, ignore_index=True)
-    monthly = add_wallonia_mean(daily_to_monthly(daily))
-    annual = add_wallonia_mean(monthly_to_annual(monthly[monthly["geo"] != WALLONIA_NUTS1]))
-    monthly_path = processed_root / "climat_mensuel.csv"
-    annual_path = processed_root / "climat_annuel.csv"
-    monthly.to_csv(monthly_path, index=False)
-    annual.to_csv(annual_path, index=False)
-    logger.info("Écrit %s (%s lignes)", monthly_path, len(monthly))
-    logger.info("Écrit %s (%s lignes)", annual_path, len(annual))
-    return monthly_path, annual_path
+    daily = daily.sort_values(["geo", "date"]).reset_index(drop=True)
+    cols = [
+        "date",
+        "geo",
+        "geo_label",
+        "temp_mean_c",
+        "temp_max_c",
+        "precip_mm",
+        "et0_mm",
+    ]
+    daily_path = processed_root / "climat_quotidien.csv"
+    daily[cols].to_csv(daily_path, index=False)
+    logger.info("Écrit %s (%s lignes)", daily_path, len(daily))
+    return daily_path
