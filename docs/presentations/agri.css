@@ -43,31 +43,69 @@ footer {
   letter-spacing: 0.02em;
 }
 
-section.cover {
+section.cover,
+section.photo {
+  position: relative;
+  overflow: hidden;
   color: #f7f3ea;
-  background: #1c1610;
-  justify-content: center;
-  padding: 64px 72px;
+  background-color: #1c1610;
+  background-size: cover;
+  background-position: center;
+  justify-content: flex-end;
+  padding: 56px 64px 72px;
 }
 
 section.cover h1,
-section.cover h2 {
+section.cover h2,
+section.photo h1,
+section.photo h2 {
   color: #fff;
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.45);
 }
 
 section.cover h1 {
   font-size: 2.2em;
 }
 
-section.cover p {
-  color: rgba(247, 243, 234, 0.88);
+section.cover p,
+section.photo p,
+section.photo li {
+  color: rgba(247, 243, 234, 0.92);
   font-size: 0.78em;
   font-weight: 600;
 }
 
+section.cover a,
+section.photo a {
+  color: #e8c56b;
+}
+
 section.cover footer,
-section.cover footer a {
-  color: rgba(255, 255, 255, 0.62);
+section.photo footer,
+section.cover footer a,
+section.photo footer a {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Voile sombre : le titre reste lisible sur la photo. */
+section.cover::after,
+section.photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(18, 14, 10, 0.82) 0%,
+    rgba(18, 14, 10, 0.38) 48%,
+    rgba(18, 14, 10, 0.28) 100%
+  );
+  pointer-events: none;
+}
+
+section.cover > *,
+section.photo > * {
+  position: relative;
+  z-index: 1;
 }
 
 section.story {

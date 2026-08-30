@@ -8,6 +8,8 @@ footer: '[Tableau de bord →](../explore-fr.html)'
 <!-- _class: cover -->
 <!-- _paginate: false -->
 
+![bg](../pictures/presentations/photos/cover-wheat.png)
+
 # Quelles cultures wallonnes
 # sont sensibles au climat ?
 
@@ -17,7 +19,9 @@ DuckDB · Wallonie · 2000–2024
 
 ---
 
-<!-- _class: story -->
+<!-- _class: photo -->
+
+![bg](../pictures/presentations/photos/hills-dusk.png)
 
 ## Pourquoi ce sujet
 
@@ -30,7 +34,9 @@ d'une équipe comme **Soil Capital**.
 
 ---
 
-<!-- _class: story -->
+<!-- _class: photo -->
+
+![bg](../pictures/presentations/photos/storm-rain.png)
 
 ## Le problème
 
@@ -89,7 +95,9 @@ les territoires comme s'ils étaient indépendants.
 
 ---
 
-<!-- _class: story -->
+<!-- _class: photo -->
+
+![bg](../pictures/presentations/photos/heat-maize.png)
 
 ## Ce qu'on en fait
 

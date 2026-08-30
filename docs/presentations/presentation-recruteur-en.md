@@ -8,8 +8,10 @@ footer: '[Dashboard →](../explore-en.html)'
 <!-- _class: cover -->
 <!-- _paginate: false -->
 
+![bg](../pictures/presentations/photos/cover-wheat.png)
+
 # Which Walloon crops
-# are sensitive to climate?
+# are sensitive to climate ?
 
 **SQL integration × agricultural data**
 
@@ -17,7 +19,9 @@ DuckDB · Wallonia · 2000–2024
 
 ---
 
-<!-- _class: story -->
+<!-- _class: photo -->
+
+![bg](../pictures/presentations/photos/hills-dusk.png)
 
 ## Why this subject
 
@@ -29,7 +33,9 @@ or agronomic advice — the kind of work a team like **Soil Capital** does.
 
 ---
 
-<!-- _class: story -->
+<!-- _class: photo -->
+
+![bg](../pictures/presentations/photos/storm-rain.png)
 
 ## The problem
 
@@ -88,7 +94,9 @@ territories as if they were independent draws.
 
 ---
 
-<!-- _class: story -->
+<!-- _class: photo -->
+
+![bg](../pictures/presentations/photos/heat-maize.png)
 
 ## What to do with it
 

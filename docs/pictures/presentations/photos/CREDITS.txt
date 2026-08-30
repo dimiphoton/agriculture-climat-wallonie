@@ -1,0 +1,7 @@
+Fonds 16:9 générés pour les slides Marp (thème agri).
+Pas de texte dans l'image : le message est dans la typo.
+
+- cover-wheat.png — ouverture (froment, lumière d'orage)
+- hills-dusk.png — territoire / géomatique
+- storm-rain.png — saison très humide (ex. 2024)
+- heat-maize.png — été chaud-sec (ex. 2018)

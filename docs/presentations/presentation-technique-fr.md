@@ -8,6 +8,8 @@ footer: '[Explorer →](../explore-fr.html)'
 <!-- _class: cover -->
 <!-- _paginate: false -->
 
+![bg](../pictures/presentations/photos/cover-wheat.png)
+
 # Le climat explique-t-il
 # les écarts de rendement ?
 
@@ -91,7 +93,9 @@ Les autres cultures ne battent en général pas la naïve (n petit, ET0 colliné
 
 ---
 
-<!-- _class: story -->
+<!-- _class: photo -->
+
+![bg](../pictures/presentations/photos/storm-rain.png)
 
 ## Où ça casse
 

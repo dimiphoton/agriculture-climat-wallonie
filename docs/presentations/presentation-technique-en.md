@@ -8,6 +8,8 @@ footer: '[Explore →](../explore-en.html)'
 <!-- _class: cover -->
 <!-- _paginate: false -->
 
+![bg](../pictures/presentations/photos/cover-wheat.png)
+
 # Does climate explain
 # yield gaps?
 
@@ -91,7 +93,9 @@ Most other crops do not beat naive (small n, collinear ET0).
 
 ---
 
-<!-- _class: story -->
+<!-- _class: photo -->
+
+![bg](../pictures/presentations/photos/storm-rain.png)
 
 ## Where it breaks
 

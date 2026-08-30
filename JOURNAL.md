@@ -1,5 +1,10 @@
 # Journal de développement
 
+## 2026-08-30 — Photos 16:9 sous docs/pictures
+
+- Fonds Marp (froment, collines, pluie, maïs) servis par GitHub Pages.
+- Graphes de slides copiés dans `docs/pictures/presentations/`.
+
 ## 2026-08-30 — Brief SQL / DuckDB
 
 - Schéma à grains hétérogènes (`sql/schema.sql`) : climat quotidien en
