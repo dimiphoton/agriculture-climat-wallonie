@@ -13,7 +13,7 @@ footer: '[Explore →](../explore-en.html)'
 # Does climate explain
 # yield gaps?
 
-**Relational pipeline** · DuckDB · mismatched grains
+**Annual** yields × **daily** climate — DuckDB views.
 
 NUTS 2 geomatics as a sign check · Wallonia · 2000–2024
 
@@ -107,4 +107,20 @@ Most other crops do not beat naive (small n, collinear ET0).
 [Explore](../explore-en.html)
 · `python -m agri_climat run` · `python -m agri_climat dashboard`
 
-Python · DuckDB (views, windows) · pandas (parse) · scipy · scikit-learn · Streamlit
+---
+
+<!-- _class: story -->
+
+## Stack
+
+One command: `python -m agri_climat run`
+
+- **Python 3.11** — pipeline and CLI
+- **DuckDB** — native-grain facts, SQL views and windows
+- **pandas** — parse Eurostat (TSV) and ERA5 (JSON)
+- **scipy** — Spearman and p-values
+- **scikit-learn** — linear leave-one-year-out baseline
+- **Streamlit + Plotly** — dashboard
+- **matplotlib** — README figures and NUTS 2 map
+
+No upstream `pd.merge`: reconciliation lives in `sql/schema.sql`.

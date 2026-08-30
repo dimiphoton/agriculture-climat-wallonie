@@ -79,3 +79,35 @@ def test_chemins_images_sous_docs() -> None:
         assert "../../pictures/" not in text
         if "pictures/presentations/" in text:
             assert "../pictures/presentations/" in text
+
+
+def test_pas_de_badges_dans_les_slides() -> None:
+    """Les logos de stack vivent sur le README et le hub Pages, pas en slide."""
+    from agri_climat.paths import docs_dir
+
+    for md_path in (docs_dir() / "presentations").glob("presentation-*.md"):
+        text = md_path.read_text(encoding="utf-8")
+        assert "shields.io" not in text
+
+
+def test_deck_technique_slide_stack() -> None:
+    """Dernière slide technique : rôle de chaque outil, pas une ligne de noms."""
+    from agri_climat.paths import docs_dir
+
+    for name in ("presentation-technique-fr.md", "presentation-technique-en.md"):
+        text = (docs_dir() / "presentations" / name).read_text(encoding="utf-8")
+        assert "## Stack" in text
+        assert "DuckDB" in text
+        assert "scikit-learn" in text
+
+
+def test_hub_pages_but_et_stack() -> None:
+    """Le hub GitHub Pages affiche la question et les logos de stack."""
+    from agri_climat.paths import docs_dir
+
+    html = (docs_dir() / "index.html").read_text(encoding="utf-8")
+    assert "recalés en SQL" in html
+    assert "reconciled in SQL" in html
+    assert "for-the-badge" in html
+    assert "logo=python" in html
+    assert "logo=duckdb" in html

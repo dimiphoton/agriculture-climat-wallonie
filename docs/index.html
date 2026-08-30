@@ -5,42 +5,197 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Agriculture et climat en Wallonie</title>
   <style>
-    body { font-family: system-ui, sans-serif; max-width: 42rem;
-           margin: 2.5rem auto; padding: 0 1.2rem; color: #1a1a1a; line-height: 1.45; }
-    h1 { font-size: 1.7rem; }
-    a { color: #1a5fb4; }
-    ul { padding-left: 1.2rem; }
-    .lang { font-size: 0.95rem; margin-bottom: 1.5rem; }
-    .cta { display: inline-block; margin: 0.4rem 0.6rem 0.4rem 0;
-           padding: 0.55rem 0.9rem; background: #1a5fb4; color: #fff;
-           text-decoration: none; border-radius: 6px; }
-    .cta.secondary { background: #c44e52; }
+    :root {
+      --cream: #f3eee6;
+      --ink: #1c1610;
+      --muted: #5c564c;
+      --gold: #8a6a12;
+      --red: #c44e52;
+      --card: #fffdf8;
+      --line: #e0d8cc;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      line-height: 1.45;
+    }
+    a { color: var(--gold); }
+    .wrap {
+      max-width: 52rem;
+      margin: 0 auto;
+      padding: 2.4rem 1.4rem 2.8rem;
+    }
+    .lang {
+      font-size: 0.92rem;
+      margin-bottom: 1.6rem;
+    }
+    h1 {
+      font-family: Georgia, "Palatino Linotype", Palatino, serif;
+      font-size: clamp(1.7rem, 4vw, 2.25rem);
+      line-height: 1.12;
+      margin: 0 0 0.7rem;
+    }
+    .question {
+      font-size: 1.12rem;
+      color: var(--muted);
+      max-width: 40rem;
+      margin: 0 0 1.1rem;
+    }
+    .kicker {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin: 0 0 0.45rem;
+    }
+    .stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin: 0 0 1.4rem;
+    }
+    .stack img { height: 28px; }
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      margin-bottom: 1.6rem;
+    }
+    .cta {
+      display: inline-block;
+      padding: 0.55rem 0.95rem;
+      background: var(--ink);
+      color: #f7f3ea;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    .cta.secondary { background: var(--red); }
+    .cta.ghost {
+      background: transparent;
+      color: var(--ink);
+      border: 1px solid #c9c0b0;
+    }
+    h2 {
+      font-family: Georgia, Palatino, serif;
+      font-size: 1.2rem;
+      margin: 0 0 0.7rem;
+    }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(14.5rem, 1fr));
+      gap: 0.75rem;
+      margin-bottom: 0.4rem;
+    }
+    .card {
+      display: block;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 0.95rem 1.05rem;
+      text-decoration: none;
+      color: inherit;
+    }
+    .card strong { display: block; margin-bottom: 0.3rem; }
+    .card span { font-size: 0.88rem; color: var(--muted); }
+    hr {
+      border: none;
+      border-top: 1px solid var(--line);
+      margin: 2.4rem 0;
+    }
+    footer {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-top: 1.8rem;
+    }
   </style>
 </head>
 <body>
-  <p class="lang"><a href="#en">English</a></p>
-  <h1>Agriculture et climat en Wallonie</h1>
-  <p>Quelles cultures souffrent du climat récent (2000–2024) ?</p>
-  <p>
-    <a class="cta secondary" href="explore-fr.html">Tableau de bord</a>
-    <a class="cta" href="slides/presentation-recruteur-fr.html">Présentation</a>
-  </p>
-  <ul>
-    <li><a href="slides/presentation-recruteur-fr.html">Présentation grand public</a></li>
-    <li><a href="slides/presentation-technique-fr.html">Présentation technique</a></li>
-    <li><a href="https://github.com/dimiphoton/agriculture-climat-wallonie">Code sur GitHub</a></li>
-  </ul>
+  <div class="wrap">
+    <p class="lang"><a href="#en">English</a></p>
 
-  <h1 id="en">Agriculture and climate in Wallonia</h1>
-  <p>Which crops are hit by recent climate (2000–2024)?</p>
-  <p>
-    <a class="cta secondary" href="explore-en.html">Dashboard</a>
-    <a class="cta" href="slides/presentation-recruteur-en.html">Slides</a>
-  </p>
-  <ul>
-    <li><a href="slides/presentation-recruteur-en.html">Recruiter overview</a></li>
-    <li><a href="slides/presentation-technique-en.html">Technical deep dive</a></li>
-    <li><a href="https://github.com/dimiphoton/agriculture-climat-wallonie">Code on GitHub</a></li>
-  </ul>
+    <p class="kicker">v1.0 · SQL × agriculture</p>
+    <h1>Agriculture et climat en Wallonie</h1>
+    <p class="question">
+      Quelles cultures wallonnes sont sensibles au climat récent — une fois
+      les rendements <strong>annuels</strong> et le climat <strong>journalier</strong>
+      recalés en SQL&nbsp;?
+    </p>
+    <p class="stack" aria-label="Stack technique">
+      <img alt="Python" src="https://img.shields.io/badge/Python-3.11-3776AB?style=for-the-badge&amp;logo=python&amp;logoColor=white">
+      <img alt="DuckDB" src="https://img.shields.io/badge/DuckDB-SQL-FFF000?style=for-the-badge&amp;logo=duckdb&amp;logoColor=black">
+      <img alt="pandas" src="https://img.shields.io/badge/pandas-2.x-150458?style=for-the-badge&amp;logo=pandas&amp;logoColor=white">
+      <img alt="scipy" src="https://img.shields.io/badge/scipy-stats-8CAAE6?style=for-the-badge&amp;logo=scipy&amp;logoColor=white">
+      <img alt="scikit-learn" src="https://img.shields.io/badge/scikit--learn-1.x-F7931E?style=for-the-badge&amp;logo=scikitlearn&amp;logoColor=white">
+      <img alt="Streamlit" src="https://img.shields.io/badge/Streamlit-dashboard-FF4B4B?style=for-the-badge&amp;logo=streamlit&amp;logoColor=white">
+      <img alt="Plotly" src="https://img.shields.io/badge/Plotly-interactive-3F4F75?style=for-the-badge&amp;logo=plotly&amp;logoColor=white">
+    </p>
+    <p class="actions">
+      <a class="cta secondary" href="explore-fr.html">Tableau de bord</a>
+      <a class="cta" href="slides/presentation-recruteur-fr.html">Présentation</a>
+      <a class="cta ghost" href="slides/presentation-technique-fr.html">Deck technique</a>
+      <a class="cta ghost" href="https://github.com/dimiphoton/agriculture-climat-wallonie">Code</a>
+    </p>
+    <h2>Entrer dans le projet</h2>
+    <div class="cards">
+      <a class="card" href="slides/presentation-recruteur-fr.html">
+        <strong>Grand public</strong>
+        <span>Le problème, le résultat, la carte — sans jargon.</span>
+      </a>
+      <a class="card" href="slides/presentation-technique-fr.html">
+        <strong>Technique</strong>
+        <span>DuckDB, vues SQL, Spearman, baseline ML.</span>
+      </a>
+      <a class="card" href="explore-fr.html">
+        <strong>Explorer</strong>
+        <span>Séries Plotly, filtres culture / années.</span>
+      </a>
+    </div>
+    <footer>Wallonie · 2000–2024 · Eurostat + ERA5 · pas de scénario CMIP6 dans cette v1.</footer>
+
+    <hr>
+    <h1 id="en">Agriculture and climate in Wallonia</h1>
+    <p class="question">
+      Which Walloon crops are sensitive to recent climate — once
+      <strong>annual</strong> yields and <strong>daily</strong> weather
+      are reconciled in SQL?
+    </p>
+    <p class="stack" aria-label="Technical stack">
+      <img alt="Python" src="https://img.shields.io/badge/Python-3.11-3776AB?style=for-the-badge&amp;logo=python&amp;logoColor=white">
+      <img alt="DuckDB" src="https://img.shields.io/badge/DuckDB-SQL-FFF000?style=for-the-badge&amp;logo=duckdb&amp;logoColor=black">
+      <img alt="pandas" src="https://img.shields.io/badge/pandas-2.x-150458?style=for-the-badge&amp;logo=pandas&amp;logoColor=white">
+      <img alt="scipy" src="https://img.shields.io/badge/scipy-stats-8CAAE6?style=for-the-badge&amp;logo=scipy&amp;logoColor=white">
+      <img alt="scikit-learn" src="https://img.shields.io/badge/scikit--learn-1.x-F7931E?style=for-the-badge&amp;logo=scikitlearn&amp;logoColor=white">
+      <img alt="Streamlit" src="https://img.shields.io/badge/Streamlit-dashboard-FF4B4B?style=for-the-badge&amp;logo=streamlit&amp;logoColor=white">
+      <img alt="Plotly" src="https://img.shields.io/badge/Plotly-interactive-3F4F75?style=for-the-badge&amp;logo=plotly&amp;logoColor=white">
+    </p>
+    <p class="actions">
+      <a class="cta secondary" href="explore-en.html">Dashboard</a>
+      <a class="cta" href="slides/presentation-recruteur-en.html">Slides</a>
+      <a class="cta ghost" href="slides/presentation-technique-en.html">Technical deck</a>
+      <a class="cta ghost" href="https://github.com/dimiphoton/agriculture-climat-wallonie">Code</a>
+    </p>
+    <h2>Start here</h2>
+    <div class="cards">
+      <a class="card" href="slides/presentation-recruteur-en.html">
+        <strong>Recruiter overview</strong>
+        <span>The question, the result, the map — no jargon.</span>
+      </a>
+      <a class="card" href="slides/presentation-technique-en.html">
+        <strong>Technical deep dive</strong>
+        <span>DuckDB, SQL views, Spearman, ML baseline.</span>
+      </a>
+      <a class="card" href="explore-en.html">
+        <strong>Explore</strong>
+        <span>Plotly series, crop / year filters.</span>
+      </a>
+    </div>
+    <footer>Wallonia · 2000–2024 · Eurostat + ERA5 · no CMIP6 scenario in this v1.</footer>
+  </div>
 </body>
 </html>

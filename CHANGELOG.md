@@ -1,6 +1,17 @@
 # Changelog
 
-## [Non publié]
+## [1.0.0] — 2026-08-30
+
+Clôture du périmètre portfolio (features 1–8). Feature 9 (CMIP6 / SSP)
+volontairement hors v1.
+
+### Clôture et vitrine
+
+- Niveau **Intermediate** confirmé ; version paquet `1.0.0`.
+- Hub GitHub Pages : question en une phrase, stack illustrée (badges
+  avec logos), liens slides / dashboard / code.
+- Decks techniques : slide **Stack** (rôle de chaque outil) ; pas de
+  badges en ouverture.
 
 ### Brief — intégration SQL (DuckDB)
 

@@ -1,5 +1,9 @@
 # Roadmap
 
+**Statut : v1.0 terminée (août 2026).** Features 1–8 livrées.
+La Feature 9 (scénarios CMIP6 / SSP) reste volontairement hors périmètre
+— ce n'est pas un oubli.
+
 Projet : rendements agricoles wallons × variabilité climatique.  
 Domaine : intégration SQL de sources à grains hétérogènes (DuckDB),
 puis analyse statistique / BI, carte et ML basique en complément.  
@@ -68,11 +72,11 @@ dashboard interactif.
 - [x] Présentations Marp (4 fichiers FR/EN)
 - [x] CHANGELOG et entrée JOURNAL après merge des features majeures
 
-## Feature 9 — Scénarios climatiques (optionnel, après le ML)
+## Feature 9 — Scénarios climatiques (hors v1.0)
 
-- [ ] Toujours optionnel : pas de rendements futurs dans le jeu observé
-- [ ] Si un jour : API Climate Open-Meteo (CMIP6 / SSP), overlay séparé,
-      jamais mélangé aux années observées 2000–2024
+- [ ] **Hors v1.0** : pas de rendements futurs dans le jeu observé
+- [ ] Si un repo ultérieur : API Climate Open-Meteo (CMIP6 / SSP), overlay
+      séparé, jamais mélangé aux années observées 2000–2024
 - [ ] Documenter l'incertitude modèle + downscaling (voir `docs/decisions.md`)
 
 ---

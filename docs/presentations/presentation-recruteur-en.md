@@ -13,7 +13,7 @@ footer: '[Dashboard →](../explore-en.html)'
 # Which Walloon crops
 # are sensitive to climate ?
 
-**SQL integration × agricultural data**
+**Annual** yields × **daily** climate — reconciled in SQL.
 
 DuckDB · Wallonia · 2000–2024
 
